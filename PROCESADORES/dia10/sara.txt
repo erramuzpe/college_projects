@@ -1,0 +1,72 @@
+
+int* Makelist(int nquad)
+
+{
+
+int* list=(int*)malloc(sizeof(int)*15);
+
+list[0]=nquad;
+
+list[1]=0;
+
+return list;
+
+}
+
+
+
+int* Merge(int* list1,int* list2)
+
+{
+
+int* temp=list1,count1=0,count2=0;
+
+while(list1[count1]!=0) count1++;
+
+while(list1[count2]!=0)
+
+{
+
+list1[count1]=list2[count2];
+
+count1++;
+
+count2++;
+
+}
+
+return temp;
+
+}
+
+
+
+void Backpatch(int* list,int nquad)
+
+{
+
+char addr[10];
+
+sprintf(addr,"%d",nquad);
+
+while(*list!=0)
+
+{
+
+int index=*list++-START;
+
+strcat(code[index],addr);
+
+}
+
+}
+
+
+
+void Gen()
+
+{
+
+nextquad++;
+
+}

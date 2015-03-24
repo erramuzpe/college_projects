@@ -1,0 +1,23 @@
+%ejer 7
+
+
+cerca(1:4)=1;
+cerca(5:15)=0;
+
+%%a
+lejos(1:10)=0;
+lejos(11:15)=1;
+
+plot(cerca,'g'), title('DISTANCIA')
+hold on
+plot(lejos,'r')
+legend('Cerca','Lejos')
+hold off
+
+%%b
+
+clear all;
+
+for (x=1:0.1:15)
+    muycerca = cerca(x).^2;
+end

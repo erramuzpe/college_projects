@@ -1,0 +1,62 @@
+PRAC3
+
+Algoritmos geneticos multiobjetivo.
+
+
+2 familias de algoritmos: NSGA II (elitismo) y SPEA2
+
+Se puede aplicar a muchas cosas; combinatoria, optimización...
+problemas: viajante multiobjetivo y mochila multiobjetivo.
+
+En esta práctica optimización numérica: Pareto multiobjetivo continuo.
+
+Entrega 13-J
+
+problema de n variables. n=10 o n=30, depende. 
+
+operadores de cruce y evolución que funcionen con reales. 
+
+Las funciones son BI-objetivo.
+
+la primera función es normal y la segunda, generada de la primera.
+
+Hay que construir el SPEA2 a partir del SPEA.
+
+Algunas de las funciones son discontinuas. 
+
+Vamos a usar 2 operadores de cruce y 2 de evolucion.
+El op. cruce 2 no se entiende, da igual. Es el que trae SPEA2, ya está.
+Es mucho más elaborado que el primero, tenemos que ver si funciona mejor.
+
+Los operadores de evolucion(mutacion) es polinomial. Se mira por encima y ya.
+Hay que copiarlo de uno a otro!
+
+QUE HACER:
+
+Nos dan el SPEA. Hay que hacer el SPEA2 añadiendole 3 cosillas. Se puede copiar de internet.
+Estudiar y comprender el algoritmo.
+
+Tenemos SPEA2 y NSGA-II cada uno 2 variantes. con BLX alfa y sleat?¿ y el otro
+SBX15 y BL.
+
+4 alg * 5 funciones * 10 ejecuciones = 200 ejecuciones.
+
+la semilla, en uno es 1 y en otro 1.0 por el tipo de dato.
+
+SPEA2 con ZDT3 no está preparado para objetivos negativos. Lo que hacemos es sumar 1 a la segunda de las funciones. Está metido en el código. Nos da un pareto falseado. HAY QUE RESTARLE 1 para obetener resultados bien.
+
+RESULTADOS:
+
+Metrica C. Tablas en el guión.Dominancia de una de las variantes sobre otro y viceversa. Cada una tiene un pareto (muchos resultados(todos los óptimos respecto de su problema), en cada variante puede no ser el mismo número. HAY QUE AGREGAR: sumas todo y divides entre n. Si dominan a todas es 1, se define en 0-1) se comparan y sabemos cuantas dominan a las otras. Si la media es más alta, mejor. 
+Sacamos el mejor SPEA y el mejor NSGA y las comparamos. El criterio para definir "mejor" tenemos que justificarlo.
+
+PINTAR los paretos:
+
+de cada ejecución, 1 pareto. En 10 ejecuciones, 10 paretos de la primera variante del primer algoritmo. Se unen estos 10 paretos y se borran las dominadas. Sale un pareto global, que es el que se pinta. GNU plot.
+Se pintan 2 variables de cada alg, podemos comparar visualmente muy faćil.
+Sacamos más info que de una métrica.
+
+
+
+
+

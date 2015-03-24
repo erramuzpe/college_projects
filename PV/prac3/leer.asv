@@ -1,0 +1,8 @@
+function fichero = leer(numero) 
+
+fich1=fopen(strcat('./recvoz/',numero,'.x20'));
+fich2=fopen(strcat('./recvoz/',numero,'.x21'));
+fich3=fopen(strcat('./recvoz/',numero,'.x22'));
+
+[ficheroentrada1,num]=fread(fich1,inf,'int16');
+[ficheroentrada2,num]=fread(fich2,inf,'int16');

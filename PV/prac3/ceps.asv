@@ -1,0 +1,19 @@
+function [ cepstrum ] = ceps( ak )
+
+p=12;
+cepstrum(1)=-ak(1);
+
+for n=2:P
+    C(n)=-ak(n);
+    for k=1:n-1
+        C(n)=C(n)-(1-k/n)*ak(k)*C(k-m);
+    end;
+end;
+
+% for i=p+1:n
+%     k=1:p;
+%     h_c(i)=sum(a(1:p)'.*(ones(1,p)-k/i).*h_c(i-1:-1:i-p)); 
+% end
+
+end
+

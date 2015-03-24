@@ -1,0 +1,55 @@
+Net:twitter librería de apoyo para hacer la búsqueda en twitter. 
+En las transparencias está casi hecho. 
+
+
+ @listanombrepropios  = $texto =~ /() /g  #entre paréntesis coger las palabras con Mayus consecutivas.
+
+Se puede ver en las transparencias de "entidades nomimales" lo que estamos viendo.
+
+
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+# Archivo que quieres parsear
+my $archivo = 'tu_archivo.txt';
+
+my %Palabras;
+
+open my $FILE, '<', $archivo or die("No pude abrir el archivo: $!");
+
+while (my $linea = <$FILE>) {
+
+    chomp $linea;
+
+    $Palabras{lc $_}++ for split /\s+/, $linea;
+
+}
+
+close $FILE;
+
+
+#Ahora vemos el resultado del conteo
+
+for my $palabra ( sort { $Palabras{$b} <=> $Palabras{$a} } keys %Palabras) {
+    print $Palabras{ $palabra } . " - " . $palabra . "\n";
+}
+
+
+Deja te explico un poco lo que hace para que puedas empezar a modificarlo para que haga lo que necesitas.
+
+Abre un archivo y lo lee línea por línea. Cada línea la divide por palabras (esta división es muy relativa, pues realmente divido por espacios pre-suponiendo que cada palabra está separada por espacio) usando la función split.
+
+Usando el hash %Palabras se lleva el conteo de cada palabra que se va encontrando, no antes sin convertir todas las palabras en minúsculas usando la función lc para que sea lo mismo la palabra "Agua" que "agua".
+
+Ya al final se muestra el resultado de todas las palabras encontradas ordenandolas por las que tienen más apariciones en el archivo.
+
+Creo que esto te dá suficiente para empezar a crear el script que necesitas, también te recomiendo que cheques la sección de tutoriales donde podrás encontrar más información.
+
+
+Saludos
+
+
+
+

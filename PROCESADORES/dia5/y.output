@@ -1,0 +1,2997 @@
+Estado 119 conflictos: 13 desplazamiento(s)/reducción(ones)
+Estado 150 conflictos: 3 desplazamiento(s)/reducción(ones)
+Estado 180 conflictos: 13 desplazamiento(s)/reducción(ones)
+
+
+Gramática
+
+    0 $accept: desc_algoritmo $end
+
+    1 desc_algoritmo: tok_algoritmo tok_id cabecera_alg bloque_alg tok_falgoritmo
+
+    2 cabecera_alg: decl_globales decl_a_f decl_ent_sal tok_comentario
+
+    3 bloque_alg: bloque tok_comentario
+
+    4 decl_globales: /* vacío */
+    5              | declaracion_tipo decl_globales
+    6              | declaracion_const decl_globales
+
+    7 decl_a_f: /* vacío */
+    8         | accion_d decl_a_f
+    9         | funcion_d decl_a_f
+
+   10 bloque: declaraciones instrucciones
+
+   11 declaraciones: /* vacío */
+   12              | declaracion_tipo declaraciones
+   13              | declaracion_const declaraciones
+   14              | declaracion_var declaraciones
+
+   15 declaracion_tipo: tok_tipo lista_d_tipo tok_ftipo
+
+   16 declaracion_const: tok_cconst lista_d_cte tok_fconst
+
+   17 declaracion_var: tok_var lista_d_var tok_fvar
+
+   18 lista_d_tipo: /* vacío */
+   19             | tok_id tok_igual d_tipo tok_punto_y_coma lista_d_tipo
+
+   20 d_tipo: tok_tupla lista_campos tok_ftupla
+   21       | tok_tabla tok_abrec expresion_t tok_puntopunto expresion_t tok_cierrac tok_de tok_id
+   22       | expresion_t tok_puntopunto expresion_t
+   23       | tok_puntero tipo
+
+   24 expresion_t: exp
+   25            | tok_caracter
+
+   26 lista_campos: /* vacío */
+   27             | tok_id tok_dos_puntos tok_tipo tok_punto_y_coma lista_campos
+
+   28 tipo: tipo_escalar
+   29     | tok_id
+
+   30 tipo_escalar: tok_entero
+   31             | tok_booleano
+   32             | tok_caracter
+
+   33 lista_d_cte: /* vacío */
+   34            | tok_id tok_igual tok_literal_numerico tok_punto_y_coma lista_d_cte
+   35            | tok_id tok_igual tok_caracter tok_punto_y_coma lista_d_cte
+   36            | tok_id tok_igual tok_verdadero tok_punto_y_coma lista_d_cte
+   37            | tok_id tok_igual tok_falso tok_punto_y_coma lista_d_cte
+
+   38 lista_d_var: /* vacío */
+   39            | lista_id tok_dos_puntos tipo tok_punto_y_coma lista_d_var
+   40            | lista_id tok_dos_puntos d_tipo tok_punto_y_coma lista_d_var
+
+   41 lista_id: /* vacío */
+   42         | tok_id tok_coma lista_id
+
+   43 decl_ent_sal: decl_ent
+   44             | decl_ent decl_salida
+   45             | decl_salida
+
+   46 decl_ent: tok_ent lista_d_var
+
+   47 decl_salida: tok_sal lista_d_var
+
+   48 exp: exp tok_mas exp
+   49    | exp tok_menos exp
+   50    | exp tok_por exp
+   51    | exp tok_div exp
+   52    | tok_menos_unario exp
+   53    | tok_abre exp tok_cierra
+   54    | operando
+   55    | tok_literal_numerico
+   56    | exp tok_yy exp
+   57    | exp tok_oo exp
+   58    | tok_no exp
+   59    | tok_verdadero
+   60    | tok_falso
+   61    | exp oprel exp
+   62    | funcion_ll
+   63    | exp tok_mod exp
+
+   64 operando: tok_id
+   65         | operando tok_punto operando
+   66         | operando tok_abrec exp tok_cierrac
+   67         | operando tok_puntero
+
+   68 oprel: tok_igual
+   69      | tok_menor
+   70      | tok_mayor
+   71      | tok_menor_igual
+   72      | tok_mayor_igual
+   73      | tok_distinto
+
+   74 instrucciones: instruccion tok_punto_y_coma instrucciones
+   75              | instruccion
+
+   76 instruccion: tok_continuar
+   77            | asignacion
+   78            | alternativa
+   79            | iteracion
+   80            | accion_ll
+
+   81 asignacion: operando tok_asignacion exp
+
+   82 alternativa: tok_si exp tok_flecha instrucciones lista_opciones tok_fsi
+
+   83 lista_opciones: /* vacío */
+   84               | tok_corchetes exp tok_flecha instrucciones lista_opciones
+
+   85 iteracion: it_cota_fija
+   86          | it_cota_exp
+
+   87 it_cota_exp: tok_mientras exp tok_hacer instrucciones tok_fmientras
+
+   88 it_cota_fija: tok_para asignacion tok_hasta exp tok_hacer instrucciones tok_fpara
+
+   89 accion_d: tok_accion a_cabecera bloque tok_faccion
+
+   90 funcion_d: tok_funcion f_cabecera bloque tok_dev exp tok_ffuncion
+
+   91 a_cabecera: tok_id tok_abre d_par_form tok_cierra tok_punto_y_coma
+
+   92 f_cabecera: tok_id tok_abre lista_d_var tok_cierra tok_dev tok_tipo tok_punto_y_coma
+
+   93 d_par_form: /* vacío */
+   94           | d_p_form tok_punto_y_coma d_par_form
+
+   95 d_p_form: tok_ent lista_id tok_dos_puntos tok_tipo
+   96         | tok_sal lista_id tok_dos_puntos tok_tipo
+   97         | tok_e_s lista_id tok_dos_puntos tok_tipo
+
+   98 accion_ll: tok_id tok_abre l_ll tok_cierra
+
+   99 funcion_ll: tok_id tok_abre l_ll tok_cierra
+
+  100 l_ll: exp tok_coma l_ll
+  101     | exp
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+error (256)
+tok_id (258) 1 19 21 27 29 34 35 36 37 42 64 91 92 98 99
+tok_literal_numerico (259) 34 55
+tok_comentario (260) 2 3
+tok_punto_y_coma (261) 19 27 34 35 36 37 39 40 74 91 92 94
+tok_dos_puntos (262) 27 39 40 95 96 97
+tok_puntopunto (263) 21 22
+tok_coma (264) 42 100
+tok_punto (265) 65
+tok_corchetes (266) 84
+tok_flecha (267) 82 84
+tok_igual (268) 19 34 35 36 37 68
+tok_asignacion (269) 81
+tok_abre (270) 53 91 92 98 99
+tok_cierra (271) 53 91 92 98 99
+tok_abrec (272) 21 66
+tok_cierrac (273) 21 66
+tok_puntero (274) 23 67
+tok_accion (275) 89
+tok_algoritmo (276) 1
+tok_cconst (277) 16
+tok_continuar (278) 76
+tok_de (279) 21
+tok_dev (280) 90 92
+tok_div (281) 51
+tok_ent (282) 46 95
+tok_e_s (283) 97
+tok_faccion (284) 89
+tok_falgoritmo (285) 1
+tok_falso (286) 37 60
+tok_fconst (287) 16
+tok_ffuncion (288) 90
+tok_fmientras (289) 87
+tok_fpara (290) 88
+tok_fsi (291) 82
+tok_ftipo (292) 15
+tok_ftupla (293) 20
+tok_funcion (294) 90
+tok_fvar (295) 17
+tok_hacer (296) 87 88
+tok_hasta (297) 88
+tok_mientras (298) 87
+tok_mod (299) 63
+tok_no (300) 58
+tok_oo (301) 57
+tok_para (302) 88
+tok_sal (303) 47 96
+tok_si (304) 82
+tok_tabla (305) 21
+tok_tipo (306) 15 27 92 95 96 97
+tok_tupla (307) 20
+tok_var (308) 17
+tok_verdadero (309) 36 59
+tok_yy (310) 56
+tok_mas (311) 48
+tok_menos (312) 49
+tok_menos_unario (313) 52
+tok_por (314) 50
+tok_menor (315) 69
+tok_mayor (316) 70
+tok_menor_igual (317) 71
+tok_mayor_igual (318) 72
+tok_distinto (319) 73
+tok_entero (320) 30
+tok_booleano (321) 31
+tok_caracter (322) 25 32 35
+
+
+No terminales con las reglas donde aparecen
+
+$accept (68)
+    en la izquierda: 0
+desc_algoritmo (69)
+    en la izquierda: 1, en la derecha: 0
+cabecera_alg (70)
+    en la izquierda: 2, en la derecha: 1
+bloque_alg (71)
+    en la izquierda: 3, en la derecha: 1
+decl_globales (72)
+    en la izquierda: 4 5 6, en la derecha: 2 5 6
+decl_a_f (73)
+    en la izquierda: 7 8 9, en la derecha: 2 8 9
+bloque (74)
+    en la izquierda: 10, en la derecha: 3 89 90
+declaraciones (75)
+    en la izquierda: 11 12 13 14, en la derecha: 10 12 13 14
+declaracion_tipo (76)
+    en la izquierda: 15, en la derecha: 5 12
+declaracion_const (77)
+    en la izquierda: 16, en la derecha: 6 13
+declaracion_var (78)
+    en la izquierda: 17, en la derecha: 14
+lista_d_tipo (79)
+    en la izquierda: 18 19, en la derecha: 15 19
+d_tipo (80)
+    en la izquierda: 20 21 22 23, en la derecha: 19 40
+expresion_t (81)
+    en la izquierda: 24 25, en la derecha: 21 22
+lista_campos (82)
+    en la izquierda: 26 27, en la derecha: 20 27
+tipo (83)
+    en la izquierda: 28 29, en la derecha: 23 39
+tipo_escalar (84)
+    en la izquierda: 30 31 32, en la derecha: 28
+lista_d_cte (85)
+    en la izquierda: 33 34 35 36 37, en la derecha: 16 34 35 36 37
+lista_d_var (86)
+    en la izquierda: 38 39 40, en la derecha: 17 39 40 46 47 92
+lista_id (87)
+    en la izquierda: 41 42, en la derecha: 39 40 42 95 96 97
+decl_ent_sal (88)
+    en la izquierda: 43 44 45, en la derecha: 2
+decl_ent (89)
+    en la izquierda: 46, en la derecha: 43 44
+decl_salida (90)
+    en la izquierda: 47, en la derecha: 44 45
+exp (91)
+    en la izquierda: 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63,
+    en la derecha: 24 48 49 50 51 52 53 56 57 58 61 63 66 81 82 84
+    87 88 90 100 101
+operando (92)
+    en la izquierda: 64 65 66 67, en la derecha: 54 65 66 67 81
+oprel (93)
+    en la izquierda: 68 69 70 71 72 73, en la derecha: 61
+instrucciones (94)
+    en la izquierda: 74 75, en la derecha: 10 74 82 84 87 88
+instruccion (95)
+    en la izquierda: 76 77 78 79 80, en la derecha: 74 75
+asignacion (96)
+    en la izquierda: 81, en la derecha: 77 88
+alternativa (97)
+    en la izquierda: 82, en la derecha: 78
+lista_opciones (98)
+    en la izquierda: 83 84, en la derecha: 82 84
+iteracion (99)
+    en la izquierda: 85 86, en la derecha: 79
+it_cota_exp (100)
+    en la izquierda: 87, en la derecha: 86
+it_cota_fija (101)
+    en la izquierda: 88, en la derecha: 85
+accion_d (102)
+    en la izquierda: 89, en la derecha: 8
+funcion_d (103)
+    en la izquierda: 90, en la derecha: 9
+a_cabecera (104)
+    en la izquierda: 91, en la derecha: 89
+f_cabecera (105)
+    en la izquierda: 92, en la derecha: 90
+d_par_form (106)
+    en la izquierda: 93 94, en la derecha: 91 94
+d_p_form (107)
+    en la izquierda: 95 96 97, en la derecha: 94
+accion_ll (108)
+    en la izquierda: 98, en la derecha: 80
+funcion_ll (109)
+    en la izquierda: 99, en la derecha: 62
+l_ll (110)
+    en la izquierda: 100 101, en la derecha: 98 99 100
+
+
+estado 0
+
+    0 $accept: . desc_algoritmo $end
+
+    tok_algoritmo  desplazar e ir al estado 1
+
+    desc_algoritmo  ir al estado 2
+
+
+estado 1
+
+    1 desc_algoritmo: tok_algoritmo . tok_id cabecera_alg bloque_alg tok_falgoritmo
+
+    tok_id  desplazar e ir al estado 3
+
+
+estado 2
+
+    0 $accept: desc_algoritmo . $end
+
+    $end  desplazar e ir al estado 4
+
+
+estado 3
+
+    1 desc_algoritmo: tok_algoritmo tok_id . cabecera_alg bloque_alg tok_falgoritmo
+
+    tok_cconst  desplazar e ir al estado 5
+    tok_tipo    desplazar e ir al estado 6
+
+    $default  reduce usando la regla 4 (decl_globales)
+
+    cabecera_alg       ir al estado 7
+    decl_globales      ir al estado 8
+    declaracion_tipo   ir al estado 9
+    declaracion_const  ir al estado 10
+
+
+estado 4
+
+    0 $accept: desc_algoritmo $end .
+
+    $default  aceptar
+
+
+estado 5
+
+   16 declaracion_const: tok_cconst . lista_d_cte tok_fconst
+
+    tok_id  desplazar e ir al estado 11
+
+    $default  reduce usando la regla 33 (lista_d_cte)
+
+    lista_d_cte  ir al estado 12
+
+
+estado 6
+
+   15 declaracion_tipo: tok_tipo . lista_d_tipo tok_ftipo
+
+    tok_id  desplazar e ir al estado 13
+
+    $default  reduce usando la regla 18 (lista_d_tipo)
+
+    lista_d_tipo  ir al estado 14
+
+
+estado 7
+
+    1 desc_algoritmo: tok_algoritmo tok_id cabecera_alg . bloque_alg tok_falgoritmo
+
+    tok_cconst  desplazar e ir al estado 5
+    tok_tipo    desplazar e ir al estado 6
+    tok_var     desplazar e ir al estado 15
+
+    $default  reduce usando la regla 11 (declaraciones)
+
+    bloque_alg         ir al estado 16
+    bloque             ir al estado 17
+    declaraciones      ir al estado 18
+    declaracion_tipo   ir al estado 19
+    declaracion_const  ir al estado 20
+    declaracion_var    ir al estado 21
+
+
+estado 8
+
+    2 cabecera_alg: decl_globales . decl_a_f decl_ent_sal tok_comentario
+
+    tok_accion   desplazar e ir al estado 22
+    tok_funcion  desplazar e ir al estado 23
+
+    $default  reduce usando la regla 7 (decl_a_f)
+
+    decl_a_f   ir al estado 24
+    accion_d   ir al estado 25
+    funcion_d  ir al estado 26
+
+
+estado 9
+
+    5 decl_globales: declaracion_tipo . decl_globales
+
+    tok_cconst  desplazar e ir al estado 5
+    tok_tipo    desplazar e ir al estado 6
+
+    $default  reduce usando la regla 4 (decl_globales)
+
+    decl_globales      ir al estado 27
+    declaracion_tipo   ir al estado 9
+    declaracion_const  ir al estado 10
+
+
+estado 10
+
+    6 decl_globales: declaracion_const . decl_globales
+
+    tok_cconst  desplazar e ir al estado 5
+    tok_tipo    desplazar e ir al estado 6
+
+    $default  reduce usando la regla 4 (decl_globales)
+
+    decl_globales      ir al estado 28
+    declaracion_tipo   ir al estado 9
+    declaracion_const  ir al estado 10
+
+
+estado 11
+
+   34 lista_d_cte: tok_id . tok_igual tok_literal_numerico tok_punto_y_coma lista_d_cte
+   35            | tok_id . tok_igual tok_caracter tok_punto_y_coma lista_d_cte
+   36            | tok_id . tok_igual tok_verdadero tok_punto_y_coma lista_d_cte
+   37            | tok_id . tok_igual tok_falso tok_punto_y_coma lista_d_cte
+
+    tok_igual  desplazar e ir al estado 29
+
+
+estado 12
+
+   16 declaracion_const: tok_cconst lista_d_cte . tok_fconst
+
+    tok_fconst  desplazar e ir al estado 30
+
+
+estado 13
+
+   19 lista_d_tipo: tok_id . tok_igual d_tipo tok_punto_y_coma lista_d_tipo
+
+    tok_igual  desplazar e ir al estado 31
+
+
+estado 14
+
+   15 declaracion_tipo: tok_tipo lista_d_tipo . tok_ftipo
+
+    tok_ftipo  desplazar e ir al estado 32
+
+
+estado 15
+
+   17 declaracion_var: tok_var . lista_d_var tok_fvar
+
+    tok_id  desplazar e ir al estado 33
+
+    tok_dos_puntos  reduce usando la regla 41 (lista_id)
+    $default        reduce usando la regla 38 (lista_d_var)
+
+    lista_d_var  ir al estado 34
+    lista_id     ir al estado 35
+
+
+estado 16
+
+    1 desc_algoritmo: tok_algoritmo tok_id cabecera_alg bloque_alg . tok_falgoritmo
+
+    tok_falgoritmo  desplazar e ir al estado 36
+
+
+estado 17
+
+    3 bloque_alg: bloque . tok_comentario
+
+    tok_comentario  desplazar e ir al estado 37
+
+
+estado 18
+
+   10 bloque: declaraciones . instrucciones
+
+    tok_id         desplazar e ir al estado 38
+    tok_continuar  desplazar e ir al estado 39
+    tok_mientras   desplazar e ir al estado 40
+    tok_para       desplazar e ir al estado 41
+    tok_si         desplazar e ir al estado 42
+
+    operando       ir al estado 43
+    instrucciones  ir al estado 44
+    instruccion    ir al estado 45
+    asignacion     ir al estado 46
+    alternativa    ir al estado 47
+    iteracion      ir al estado 48
+    it_cota_exp    ir al estado 49
+    it_cota_fija   ir al estado 50
+    accion_ll      ir al estado 51
+
+
+estado 19
+
+   12 declaraciones: declaracion_tipo . declaraciones
+
+    tok_cconst  desplazar e ir al estado 5
+    tok_tipo    desplazar e ir al estado 6
+    tok_var     desplazar e ir al estado 15
+
+    $default  reduce usando la regla 11 (declaraciones)
+
+    declaraciones      ir al estado 52
+    declaracion_tipo   ir al estado 19
+    declaracion_const  ir al estado 20
+    declaracion_var    ir al estado 21
+
+
+estado 20
+
+   13 declaraciones: declaracion_const . declaraciones
+
+    tok_cconst  desplazar e ir al estado 5
+    tok_tipo    desplazar e ir al estado 6
+    tok_var     desplazar e ir al estado 15
+
+    $default  reduce usando la regla 11 (declaraciones)
+
+    declaraciones      ir al estado 53
+    declaracion_tipo   ir al estado 19
+    declaracion_const  ir al estado 20
+    declaracion_var    ir al estado 21
+
+
+estado 21
+
+   14 declaraciones: declaracion_var . declaraciones
+
+    tok_cconst  desplazar e ir al estado 5
+    tok_tipo    desplazar e ir al estado 6
+    tok_var     desplazar e ir al estado 15
+
+    $default  reduce usando la regla 11 (declaraciones)
+
+    declaraciones      ir al estado 54
+    declaracion_tipo   ir al estado 19
+    declaracion_const  ir al estado 20
+    declaracion_var    ir al estado 21
+
+
+estado 22
+
+   89 accion_d: tok_accion . a_cabecera bloque tok_faccion
+
+    tok_id  desplazar e ir al estado 55
+
+    a_cabecera  ir al estado 56
+
+
+estado 23
+
+   90 funcion_d: tok_funcion . f_cabecera bloque tok_dev exp tok_ffuncion
+
+    tok_id  desplazar e ir al estado 57
+
+    f_cabecera  ir al estado 58
+
+
+estado 24
+
+    2 cabecera_alg: decl_globales decl_a_f . decl_ent_sal tok_comentario
+
+    tok_ent  desplazar e ir al estado 59
+    tok_sal  desplazar e ir al estado 60
+
+    decl_ent_sal  ir al estado 61
+    decl_ent      ir al estado 62
+    decl_salida   ir al estado 63
+
+
+estado 25
+
+    8 decl_a_f: accion_d . decl_a_f
+
+    tok_accion   desplazar e ir al estado 22
+    tok_funcion  desplazar e ir al estado 23
+
+    $default  reduce usando la regla 7 (decl_a_f)
+
+    decl_a_f   ir al estado 64
+    accion_d   ir al estado 25
+    funcion_d  ir al estado 26
+
+
+estado 26
+
+    9 decl_a_f: funcion_d . decl_a_f
+
+    tok_accion   desplazar e ir al estado 22
+    tok_funcion  desplazar e ir al estado 23
+
+    $default  reduce usando la regla 7 (decl_a_f)
+
+    decl_a_f   ir al estado 65
+    accion_d   ir al estado 25
+    funcion_d  ir al estado 26
+
+
+estado 27
+
+    5 decl_globales: declaracion_tipo decl_globales .
+
+    $default  reduce usando la regla 5 (decl_globales)
+
+
+estado 28
+
+    6 decl_globales: declaracion_const decl_globales .
+
+    $default  reduce usando la regla 6 (decl_globales)
+
+
+estado 29
+
+   34 lista_d_cte: tok_id tok_igual . tok_literal_numerico tok_punto_y_coma lista_d_cte
+   35            | tok_id tok_igual . tok_caracter tok_punto_y_coma lista_d_cte
+   36            | tok_id tok_igual . tok_verdadero tok_punto_y_coma lista_d_cte
+   37            | tok_id tok_igual . tok_falso tok_punto_y_coma lista_d_cte
+
+    tok_literal_numerico  desplazar e ir al estado 66
+    tok_falso             desplazar e ir al estado 67
+    tok_verdadero         desplazar e ir al estado 68
+    tok_caracter          desplazar e ir al estado 69
+
+
+estado 30
+
+   16 declaracion_const: tok_cconst lista_d_cte tok_fconst .
+
+    $default  reduce usando la regla 16 (declaracion_const)
+
+
+estado 31
+
+   19 lista_d_tipo: tok_id tok_igual . d_tipo tok_punto_y_coma lista_d_tipo
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_puntero           desplazar e ir al estado 73
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_tabla             desplazar e ir al estado 76
+    tok_tupla             desplazar e ir al estado 77
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+    tok_caracter          desplazar e ir al estado 80
+
+    d_tipo       ir al estado 81
+    expresion_t  ir al estado 82
+    exp          ir al estado 83
+    operando     ir al estado 84
+    funcion_ll   ir al estado 85
+
+
+estado 32
+
+   15 declaracion_tipo: tok_tipo lista_d_tipo tok_ftipo .
+
+    $default  reduce usando la regla 15 (declaracion_tipo)
+
+
+estado 33
+
+   42 lista_id: tok_id . tok_coma lista_id
+
+    tok_coma  desplazar e ir al estado 86
+
+
+estado 34
+
+   17 declaracion_var: tok_var lista_d_var . tok_fvar
+
+    tok_fvar  desplazar e ir al estado 87
+
+
+estado 35
+
+   39 lista_d_var: lista_id . tok_dos_puntos tipo tok_punto_y_coma lista_d_var
+   40            | lista_id . tok_dos_puntos d_tipo tok_punto_y_coma lista_d_var
+
+    tok_dos_puntos  desplazar e ir al estado 88
+
+
+estado 36
+
+    1 desc_algoritmo: tok_algoritmo tok_id cabecera_alg bloque_alg tok_falgoritmo .
+
+    $default  reduce usando la regla 1 (desc_algoritmo)
+
+
+estado 37
+
+    3 bloque_alg: bloque tok_comentario .
+
+    $default  reduce usando la regla 3 (bloque_alg)
+
+
+estado 38
+
+   64 operando: tok_id .
+   98 accion_ll: tok_id . tok_abre l_ll tok_cierra
+
+    tok_abre  desplazar e ir al estado 89
+
+    $default  reduce usando la regla 64 (operando)
+
+
+estado 39
+
+   76 instruccion: tok_continuar .
+
+    $default  reduce usando la regla 76 (instruccion)
+
+
+estado 40
+
+   87 it_cota_exp: tok_mientras . exp tok_hacer instrucciones tok_fmientras
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 90
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 41
+
+   88 it_cota_fija: tok_para . asignacion tok_hasta exp tok_hacer instrucciones tok_fpara
+
+    tok_id  desplazar e ir al estado 91
+
+    operando    ir al estado 43
+    asignacion  ir al estado 92
+
+
+estado 42
+
+   82 alternativa: tok_si . exp tok_flecha instrucciones lista_opciones tok_fsi
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 93
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 43
+
+   65 operando: operando . tok_punto operando
+   66         | operando . tok_abrec exp tok_cierrac
+   67         | operando . tok_puntero
+   81 asignacion: operando . tok_asignacion exp
+
+    tok_punto       desplazar e ir al estado 94
+    tok_asignacion  desplazar e ir al estado 95
+    tok_abrec       desplazar e ir al estado 96
+    tok_puntero     desplazar e ir al estado 97
+
+
+estado 44
+
+   10 bloque: declaraciones instrucciones .
+
+    $default  reduce usando la regla 10 (bloque)
+
+
+estado 45
+
+   74 instrucciones: instruccion . tok_punto_y_coma instrucciones
+   75              | instruccion .
+
+    tok_punto_y_coma  desplazar e ir al estado 98
+
+    $default  reduce usando la regla 75 (instrucciones)
+
+
+estado 46
+
+   77 instruccion: asignacion .
+
+    $default  reduce usando la regla 77 (instruccion)
+
+
+estado 47
+
+   78 instruccion: alternativa .
+
+    $default  reduce usando la regla 78 (instruccion)
+
+
+estado 48
+
+   79 instruccion: iteracion .
+
+    $default  reduce usando la regla 79 (instruccion)
+
+
+estado 49
+
+   86 iteracion: it_cota_exp .
+
+    $default  reduce usando la regla 86 (iteracion)
+
+
+estado 50
+
+   85 iteracion: it_cota_fija .
+
+    $default  reduce usando la regla 85 (iteracion)
+
+
+estado 51
+
+   80 instruccion: accion_ll .
+
+    $default  reduce usando la regla 80 (instruccion)
+
+
+estado 52
+
+   12 declaraciones: declaracion_tipo declaraciones .
+
+    $default  reduce usando la regla 12 (declaraciones)
+
+
+estado 53
+
+   13 declaraciones: declaracion_const declaraciones .
+
+    $default  reduce usando la regla 13 (declaraciones)
+
+
+estado 54
+
+   14 declaraciones: declaracion_var declaraciones .
+
+    $default  reduce usando la regla 14 (declaraciones)
+
+
+estado 55
+
+   91 a_cabecera: tok_id . tok_abre d_par_form tok_cierra tok_punto_y_coma
+
+    tok_abre  desplazar e ir al estado 99
+
+
+estado 56
+
+   89 accion_d: tok_accion a_cabecera . bloque tok_faccion
+
+    tok_cconst  desplazar e ir al estado 5
+    tok_tipo    desplazar e ir al estado 6
+    tok_var     desplazar e ir al estado 15
+
+    $default  reduce usando la regla 11 (declaraciones)
+
+    bloque             ir al estado 100
+    declaraciones      ir al estado 18
+    declaracion_tipo   ir al estado 19
+    declaracion_const  ir al estado 20
+    declaracion_var    ir al estado 21
+
+
+estado 57
+
+   92 f_cabecera: tok_id . tok_abre lista_d_var tok_cierra tok_dev tok_tipo tok_punto_y_coma
+
+    tok_abre  desplazar e ir al estado 101
+
+
+estado 58
+
+   90 funcion_d: tok_funcion f_cabecera . bloque tok_dev exp tok_ffuncion
+
+    tok_cconst  desplazar e ir al estado 5
+    tok_tipo    desplazar e ir al estado 6
+    tok_var     desplazar e ir al estado 15
+
+    $default  reduce usando la regla 11 (declaraciones)
+
+    bloque             ir al estado 102
+    declaraciones      ir al estado 18
+    declaracion_tipo   ir al estado 19
+    declaracion_const  ir al estado 20
+    declaracion_var    ir al estado 21
+
+
+estado 59
+
+   46 decl_ent: tok_ent . lista_d_var
+
+    tok_id  desplazar e ir al estado 33
+
+    tok_dos_puntos  reduce usando la regla 41 (lista_id)
+    $default        reduce usando la regla 38 (lista_d_var)
+
+    lista_d_var  ir al estado 103
+    lista_id     ir al estado 35
+
+
+estado 60
+
+   47 decl_salida: tok_sal . lista_d_var
+
+    tok_id  desplazar e ir al estado 33
+
+    tok_dos_puntos  reduce usando la regla 41 (lista_id)
+    $default        reduce usando la regla 38 (lista_d_var)
+
+    lista_d_var  ir al estado 104
+    lista_id     ir al estado 35
+
+
+estado 61
+
+    2 cabecera_alg: decl_globales decl_a_f decl_ent_sal . tok_comentario
+
+    tok_comentario  desplazar e ir al estado 105
+
+
+estado 62
+
+   43 decl_ent_sal: decl_ent .
+   44             | decl_ent . decl_salida
+
+    tok_sal  desplazar e ir al estado 60
+
+    $default  reduce usando la regla 43 (decl_ent_sal)
+
+    decl_salida  ir al estado 106
+
+
+estado 63
+
+   45 decl_ent_sal: decl_salida .
+
+    $default  reduce usando la regla 45 (decl_ent_sal)
+
+
+estado 64
+
+    8 decl_a_f: accion_d decl_a_f .
+
+    $default  reduce usando la regla 8 (decl_a_f)
+
+
+estado 65
+
+    9 decl_a_f: funcion_d decl_a_f .
+
+    $default  reduce usando la regla 9 (decl_a_f)
+
+
+estado 66
+
+   34 lista_d_cte: tok_id tok_igual tok_literal_numerico . tok_punto_y_coma lista_d_cte
+
+    tok_punto_y_coma  desplazar e ir al estado 107
+
+
+estado 67
+
+   37 lista_d_cte: tok_id tok_igual tok_falso . tok_punto_y_coma lista_d_cte
+
+    tok_punto_y_coma  desplazar e ir al estado 108
+
+
+estado 68
+
+   36 lista_d_cte: tok_id tok_igual tok_verdadero . tok_punto_y_coma lista_d_cte
+
+    tok_punto_y_coma  desplazar e ir al estado 109
+
+
+estado 69
+
+   35 lista_d_cte: tok_id tok_igual tok_caracter . tok_punto_y_coma lista_d_cte
+
+    tok_punto_y_coma  desplazar e ir al estado 110
+
+
+estado 70
+
+   64 operando: tok_id .
+   99 funcion_ll: tok_id . tok_abre l_ll tok_cierra
+
+    tok_abre  desplazar e ir al estado 111
+
+    $default  reduce usando la regla 64 (operando)
+
+
+estado 71
+
+   55 exp: tok_literal_numerico .
+
+    $default  reduce usando la regla 55 (exp)
+
+
+estado 72
+
+   53 exp: tok_abre . exp tok_cierra
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 112
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 73
+
+   23 d_tipo: tok_puntero . tipo
+
+    tok_id        desplazar e ir al estado 113
+    tok_entero    desplazar e ir al estado 114
+    tok_booleano  desplazar e ir al estado 115
+    tok_caracter  desplazar e ir al estado 116
+
+    tipo          ir al estado 117
+    tipo_escalar  ir al estado 118
+
+
+estado 74
+
+   60 exp: tok_falso .
+
+    $default  reduce usando la regla 60 (exp)
+
+
+estado 75
+
+   58 exp: tok_no . exp
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 119
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 76
+
+   21 d_tipo: tok_tabla . tok_abrec expresion_t tok_puntopunto expresion_t tok_cierrac tok_de tok_id
+
+    tok_abrec  desplazar e ir al estado 120
+
+
+estado 77
+
+   20 d_tipo: tok_tupla . lista_campos tok_ftupla
+
+    tok_id  desplazar e ir al estado 121
+
+    $default  reduce usando la regla 26 (lista_campos)
+
+    lista_campos  ir al estado 122
+
+
+estado 78
+
+   59 exp: tok_verdadero .
+
+    $default  reduce usando la regla 59 (exp)
+
+
+estado 79
+
+   52 exp: tok_menos_unario . exp
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 123
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 80
+
+   25 expresion_t: tok_caracter .
+
+    $default  reduce usando la regla 25 (expresion_t)
+
+
+estado 81
+
+   19 lista_d_tipo: tok_id tok_igual d_tipo . tok_punto_y_coma lista_d_tipo
+
+    tok_punto_y_coma  desplazar e ir al estado 124
+
+
+estado 82
+
+   22 d_tipo: expresion_t . tok_puntopunto expresion_t
+
+    tok_puntopunto  desplazar e ir al estado 125
+
+
+estado 83
+
+   24 expresion_t: exp .
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+
+    tok_igual        desplazar e ir al estado 126
+    tok_div          desplazar e ir al estado 127
+    tok_mod          desplazar e ir al estado 128
+    tok_oo           desplazar e ir al estado 129
+    tok_yy           desplazar e ir al estado 130
+    tok_mas          desplazar e ir al estado 131
+    tok_menos        desplazar e ir al estado 132
+    tok_por          desplazar e ir al estado 133
+    tok_menor        desplazar e ir al estado 134
+    tok_mayor        desplazar e ir al estado 135
+    tok_menor_igual  desplazar e ir al estado 136
+    tok_mayor_igual  desplazar e ir al estado 137
+    tok_distinto     desplazar e ir al estado 138
+
+    $default  reduce usando la regla 24 (expresion_t)
+
+    oprel  ir al estado 139
+
+
+estado 84
+
+   54 exp: operando .
+   65 operando: operando . tok_punto operando
+   66         | operando . tok_abrec exp tok_cierrac
+   67         | operando . tok_puntero
+
+    tok_punto    desplazar e ir al estado 94
+    tok_abrec    desplazar e ir al estado 96
+    tok_puntero  desplazar e ir al estado 97
+
+    $default  reduce usando la regla 54 (exp)
+
+
+estado 85
+
+   62 exp: funcion_ll .
+
+    $default  reduce usando la regla 62 (exp)
+
+
+estado 86
+
+   42 lista_id: tok_id tok_coma . lista_id
+
+    tok_id  desplazar e ir al estado 33
+
+    $default  reduce usando la regla 41 (lista_id)
+
+    lista_id  ir al estado 140
+
+
+estado 87
+
+   17 declaracion_var: tok_var lista_d_var tok_fvar .
+
+    $default  reduce usando la regla 17 (declaracion_var)
+
+
+estado 88
+
+   39 lista_d_var: lista_id tok_dos_puntos . tipo tok_punto_y_coma lista_d_var
+   40            | lista_id tok_dos_puntos . d_tipo tok_punto_y_coma lista_d_var
+
+    tok_id                desplazar e ir al estado 141
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_puntero           desplazar e ir al estado 73
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_tabla             desplazar e ir al estado 76
+    tok_tupla             desplazar e ir al estado 77
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+    tok_entero            desplazar e ir al estado 114
+    tok_booleano          desplazar e ir al estado 115
+    tok_caracter          desplazar e ir al estado 142
+
+    d_tipo        ir al estado 143
+    expresion_t   ir al estado 82
+    tipo          ir al estado 144
+    tipo_escalar  ir al estado 118
+    exp           ir al estado 83
+    operando      ir al estado 84
+    funcion_ll    ir al estado 85
+
+
+estado 89
+
+   98 accion_ll: tok_id tok_abre . l_ll tok_cierra
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 145
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+    l_ll        ir al estado 146
+
+
+estado 90
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+   87 it_cota_exp: tok_mientras exp . tok_hacer instrucciones tok_fmientras
+
+    tok_igual        desplazar e ir al estado 126
+    tok_div          desplazar e ir al estado 127
+    tok_hacer        desplazar e ir al estado 147
+    tok_mod          desplazar e ir al estado 128
+    tok_oo           desplazar e ir al estado 129
+    tok_yy           desplazar e ir al estado 130
+    tok_mas          desplazar e ir al estado 131
+    tok_menos        desplazar e ir al estado 132
+    tok_por          desplazar e ir al estado 133
+    tok_menor        desplazar e ir al estado 134
+    tok_mayor        desplazar e ir al estado 135
+    tok_menor_igual  desplazar e ir al estado 136
+    tok_mayor_igual  desplazar e ir al estado 137
+    tok_distinto     desplazar e ir al estado 138
+
+    oprel  ir al estado 139
+
+
+estado 91
+
+   64 operando: tok_id .
+
+    $default  reduce usando la regla 64 (operando)
+
+
+estado 92
+
+   88 it_cota_fija: tok_para asignacion . tok_hasta exp tok_hacer instrucciones tok_fpara
+
+    tok_hasta  desplazar e ir al estado 148
+
+
+estado 93
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+   82 alternativa: tok_si exp . tok_flecha instrucciones lista_opciones tok_fsi
+
+    tok_flecha       desplazar e ir al estado 149
+    tok_igual        desplazar e ir al estado 126
+    tok_div          desplazar e ir al estado 127
+    tok_mod          desplazar e ir al estado 128
+    tok_oo           desplazar e ir al estado 129
+    tok_yy           desplazar e ir al estado 130
+    tok_mas          desplazar e ir al estado 131
+    tok_menos        desplazar e ir al estado 132
+    tok_por          desplazar e ir al estado 133
+    tok_menor        desplazar e ir al estado 134
+    tok_mayor        desplazar e ir al estado 135
+    tok_menor_igual  desplazar e ir al estado 136
+    tok_mayor_igual  desplazar e ir al estado 137
+    tok_distinto     desplazar e ir al estado 138
+
+    oprel  ir al estado 139
+
+
+estado 94
+
+   65 operando: operando tok_punto . operando
+
+    tok_id  desplazar e ir al estado 91
+
+    operando  ir al estado 150
+
+
+estado 95
+
+   81 asignacion: operando tok_asignacion . exp
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 151
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 96
+
+   66 operando: operando tok_abrec . exp tok_cierrac
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 152
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 97
+
+   67 operando: operando tok_puntero .
+
+    $default  reduce usando la regla 67 (operando)
+
+
+estado 98
+
+   74 instrucciones: instruccion tok_punto_y_coma . instrucciones
+
+    tok_id         desplazar e ir al estado 38
+    tok_continuar  desplazar e ir al estado 39
+    tok_mientras   desplazar e ir al estado 40
+    tok_para       desplazar e ir al estado 41
+    tok_si         desplazar e ir al estado 42
+
+    operando       ir al estado 43
+    instrucciones  ir al estado 153
+    instruccion    ir al estado 45
+    asignacion     ir al estado 46
+    alternativa    ir al estado 47
+    iteracion      ir al estado 48
+    it_cota_exp    ir al estado 49
+    it_cota_fija   ir al estado 50
+    accion_ll      ir al estado 51
+
+
+estado 99
+
+   91 a_cabecera: tok_id tok_abre . d_par_form tok_cierra tok_punto_y_coma
+
+    tok_ent  desplazar e ir al estado 154
+    tok_e_s  desplazar e ir al estado 155
+    tok_sal  desplazar e ir al estado 156
+
+    $default  reduce usando la regla 93 (d_par_form)
+
+    d_par_form  ir al estado 157
+    d_p_form    ir al estado 158
+
+
+estado 100
+
+   89 accion_d: tok_accion a_cabecera bloque . tok_faccion
+
+    tok_faccion  desplazar e ir al estado 159
+
+
+estado 101
+
+   92 f_cabecera: tok_id tok_abre . lista_d_var tok_cierra tok_dev tok_tipo tok_punto_y_coma
+
+    tok_id  desplazar e ir al estado 33
+
+    tok_dos_puntos  reduce usando la regla 41 (lista_id)
+    $default        reduce usando la regla 38 (lista_d_var)
+
+    lista_d_var  ir al estado 160
+    lista_id     ir al estado 35
+
+
+estado 102
+
+   90 funcion_d: tok_funcion f_cabecera bloque . tok_dev exp tok_ffuncion
+
+    tok_dev  desplazar e ir al estado 161
+
+
+estado 103
+
+   46 decl_ent: tok_ent lista_d_var .
+
+    $default  reduce usando la regla 46 (decl_ent)
+
+
+estado 104
+
+   47 decl_salida: tok_sal lista_d_var .
+
+    $default  reduce usando la regla 47 (decl_salida)
+
+
+estado 105
+
+    2 cabecera_alg: decl_globales decl_a_f decl_ent_sal tok_comentario .
+
+    $default  reduce usando la regla 2 (cabecera_alg)
+
+
+estado 106
+
+   44 decl_ent_sal: decl_ent decl_salida .
+
+    $default  reduce usando la regla 44 (decl_ent_sal)
+
+
+estado 107
+
+   34 lista_d_cte: tok_id tok_igual tok_literal_numerico tok_punto_y_coma . lista_d_cte
+
+    tok_id  desplazar e ir al estado 11
+
+    $default  reduce usando la regla 33 (lista_d_cte)
+
+    lista_d_cte  ir al estado 162
+
+
+estado 108
+
+   37 lista_d_cte: tok_id tok_igual tok_falso tok_punto_y_coma . lista_d_cte
+
+    tok_id  desplazar e ir al estado 11
+
+    $default  reduce usando la regla 33 (lista_d_cte)
+
+    lista_d_cte  ir al estado 163
+
+
+estado 109
+
+   36 lista_d_cte: tok_id tok_igual tok_verdadero tok_punto_y_coma . lista_d_cte
+
+    tok_id  desplazar e ir al estado 11
+
+    $default  reduce usando la regla 33 (lista_d_cte)
+
+    lista_d_cte  ir al estado 164
+
+
+estado 110
+
+   35 lista_d_cte: tok_id tok_igual tok_caracter tok_punto_y_coma . lista_d_cte
+
+    tok_id  desplazar e ir al estado 11
+
+    $default  reduce usando la regla 33 (lista_d_cte)
+
+    lista_d_cte  ir al estado 165
+
+
+estado 111
+
+   99 funcion_ll: tok_id tok_abre . l_ll tok_cierra
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 145
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+    l_ll        ir al estado 166
+
+
+estado 112
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   53    | tok_abre exp . tok_cierra
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+
+    tok_igual        desplazar e ir al estado 126
+    tok_cierra       desplazar e ir al estado 167
+    tok_div          desplazar e ir al estado 127
+    tok_mod          desplazar e ir al estado 128
+    tok_oo           desplazar e ir al estado 129
+    tok_yy           desplazar e ir al estado 130
+    tok_mas          desplazar e ir al estado 131
+    tok_menos        desplazar e ir al estado 132
+    tok_por          desplazar e ir al estado 133
+    tok_menor        desplazar e ir al estado 134
+    tok_mayor        desplazar e ir al estado 135
+    tok_menor_igual  desplazar e ir al estado 136
+    tok_mayor_igual  desplazar e ir al estado 137
+    tok_distinto     desplazar e ir al estado 138
+
+    oprel  ir al estado 139
+
+
+estado 113
+
+   29 tipo: tok_id .
+
+    $default  reduce usando la regla 29 (tipo)
+
+
+estado 114
+
+   30 tipo_escalar: tok_entero .
+
+    $default  reduce usando la regla 30 (tipo_escalar)
+
+
+estado 115
+
+   31 tipo_escalar: tok_booleano .
+
+    $default  reduce usando la regla 31 (tipo_escalar)
+
+
+estado 116
+
+   32 tipo_escalar: tok_caracter .
+
+    $default  reduce usando la regla 32 (tipo_escalar)
+
+
+estado 117
+
+   23 d_tipo: tok_puntero tipo .
+
+    $default  reduce usando la regla 23 (d_tipo)
+
+
+estado 118
+
+   28 tipo: tipo_escalar .
+
+    $default  reduce usando la regla 28 (tipo)
+
+
+estado 119
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   58    | tok_no exp .
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+
+    tok_igual        desplazar e ir al estado 126
+    tok_div          desplazar e ir al estado 127
+    tok_mod          desplazar e ir al estado 128
+    tok_oo           desplazar e ir al estado 129
+    tok_yy           desplazar e ir al estado 130
+    tok_mas          desplazar e ir al estado 131
+    tok_menos        desplazar e ir al estado 132
+    tok_por          desplazar e ir al estado 133
+    tok_menor        desplazar e ir al estado 134
+    tok_mayor        desplazar e ir al estado 135
+    tok_menor_igual  desplazar e ir al estado 136
+    tok_mayor_igual  desplazar e ir al estado 137
+    tok_distinto     desplazar e ir al estado 138
+
+    tok_igual        [reduce usando la regla 58 (exp)]
+    tok_div          [reduce usando la regla 58 (exp)]
+    tok_mod          [reduce usando la regla 58 (exp)]
+    tok_oo           [reduce usando la regla 58 (exp)]
+    tok_yy           [reduce usando la regla 58 (exp)]
+    tok_mas          [reduce usando la regla 58 (exp)]
+    tok_menos        [reduce usando la regla 58 (exp)]
+    tok_por          [reduce usando la regla 58 (exp)]
+    tok_menor        [reduce usando la regla 58 (exp)]
+    tok_mayor        [reduce usando la regla 58 (exp)]
+    tok_menor_igual  [reduce usando la regla 58 (exp)]
+    tok_mayor_igual  [reduce usando la regla 58 (exp)]
+    tok_distinto     [reduce usando la regla 58 (exp)]
+    $default         reduce usando la regla 58 (exp)
+
+    oprel  ir al estado 139
+
+
+estado 120
+
+   21 d_tipo: tok_tabla tok_abrec . expresion_t tok_puntopunto expresion_t tok_cierrac tok_de tok_id
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+    tok_caracter          desplazar e ir al estado 80
+
+    expresion_t  ir al estado 168
+    exp          ir al estado 83
+    operando     ir al estado 84
+    funcion_ll   ir al estado 85
+
+
+estado 121
+
+   27 lista_campos: tok_id . tok_dos_puntos tok_tipo tok_punto_y_coma lista_campos
+
+    tok_dos_puntos  desplazar e ir al estado 169
+
+
+estado 122
+
+   20 d_tipo: tok_tupla lista_campos . tok_ftupla
+
+    tok_ftupla  desplazar e ir al estado 170
+
+
+estado 123
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   52    | tok_menos_unario exp .
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+
+    $default  reduce usando la regla 52 (exp)
+
+    oprel  ir al estado 139
+
+
+estado 124
+
+   19 lista_d_tipo: tok_id tok_igual d_tipo tok_punto_y_coma . lista_d_tipo
+
+    tok_id  desplazar e ir al estado 13
+
+    $default  reduce usando la regla 18 (lista_d_tipo)
+
+    lista_d_tipo  ir al estado 171
+
+
+estado 125
+
+   22 d_tipo: expresion_t tok_puntopunto . expresion_t
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+    tok_caracter          desplazar e ir al estado 80
+
+    expresion_t  ir al estado 172
+    exp          ir al estado 83
+    operando     ir al estado 84
+    funcion_ll   ir al estado 85
+
+
+estado 126
+
+   68 oprel: tok_igual .
+
+    $default  reduce usando la regla 68 (oprel)
+
+
+estado 127
+
+   51 exp: exp tok_div . exp
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 173
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 128
+
+   63 exp: exp tok_mod . exp
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 174
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 129
+
+   57 exp: exp tok_oo . exp
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 175
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 130
+
+   56 exp: exp tok_yy . exp
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 176
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 131
+
+   48 exp: exp tok_mas . exp
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 177
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 132
+
+   49 exp: exp tok_menos . exp
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 178
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 133
+
+   50 exp: exp tok_por . exp
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 179
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 134
+
+   69 oprel: tok_menor .
+
+    $default  reduce usando la regla 69 (oprel)
+
+
+estado 135
+
+   70 oprel: tok_mayor .
+
+    $default  reduce usando la regla 70 (oprel)
+
+
+estado 136
+
+   71 oprel: tok_menor_igual .
+
+    $default  reduce usando la regla 71 (oprel)
+
+
+estado 137
+
+   72 oprel: tok_mayor_igual .
+
+    $default  reduce usando la regla 72 (oprel)
+
+
+estado 138
+
+   73 oprel: tok_distinto .
+
+    $default  reduce usando la regla 73 (oprel)
+
+
+estado 139
+
+   61 exp: exp oprel . exp
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 180
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 140
+
+   42 lista_id: tok_id tok_coma lista_id .
+
+    $default  reduce usando la regla 42 (lista_id)
+
+
+estado 141
+
+   29 tipo: tok_id .
+   64 operando: tok_id .
+   99 funcion_ll: tok_id . tok_abre l_ll tok_cierra
+
+    tok_abre  desplazar e ir al estado 111
+
+    tok_punto_y_coma  reduce usando la regla 29 (tipo)
+    $default          reduce usando la regla 64 (operando)
+
+
+estado 142
+
+   25 expresion_t: tok_caracter .
+   32 tipo_escalar: tok_caracter .
+
+    tok_punto_y_coma  reduce usando la regla 32 (tipo_escalar)
+    $default          reduce usando la regla 25 (expresion_t)
+
+
+estado 143
+
+   40 lista_d_var: lista_id tok_dos_puntos d_tipo . tok_punto_y_coma lista_d_var
+
+    tok_punto_y_coma  desplazar e ir al estado 181
+
+
+estado 144
+
+   39 lista_d_var: lista_id tok_dos_puntos tipo . tok_punto_y_coma lista_d_var
+
+    tok_punto_y_coma  desplazar e ir al estado 182
+
+
+estado 145
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+  100 l_ll: exp . tok_coma l_ll
+  101     | exp .
+
+    tok_coma         desplazar e ir al estado 183
+    tok_igual        desplazar e ir al estado 126
+    tok_div          desplazar e ir al estado 127
+    tok_mod          desplazar e ir al estado 128
+    tok_oo           desplazar e ir al estado 129
+    tok_yy           desplazar e ir al estado 130
+    tok_mas          desplazar e ir al estado 131
+    tok_menos        desplazar e ir al estado 132
+    tok_por          desplazar e ir al estado 133
+    tok_menor        desplazar e ir al estado 134
+    tok_mayor        desplazar e ir al estado 135
+    tok_menor_igual  desplazar e ir al estado 136
+    tok_mayor_igual  desplazar e ir al estado 137
+    tok_distinto     desplazar e ir al estado 138
+
+    $default  reduce usando la regla 101 (l_ll)
+
+    oprel  ir al estado 139
+
+
+estado 146
+
+   98 accion_ll: tok_id tok_abre l_ll . tok_cierra
+
+    tok_cierra  desplazar e ir al estado 184
+
+
+estado 147
+
+   87 it_cota_exp: tok_mientras exp tok_hacer . instrucciones tok_fmientras
+
+    tok_id         desplazar e ir al estado 38
+    tok_continuar  desplazar e ir al estado 39
+    tok_mientras   desplazar e ir al estado 40
+    tok_para       desplazar e ir al estado 41
+    tok_si         desplazar e ir al estado 42
+
+    operando       ir al estado 43
+    instrucciones  ir al estado 185
+    instruccion    ir al estado 45
+    asignacion     ir al estado 46
+    alternativa    ir al estado 47
+    iteracion      ir al estado 48
+    it_cota_exp    ir al estado 49
+    it_cota_fija   ir al estado 50
+    accion_ll      ir al estado 51
+
+
+estado 148
+
+   88 it_cota_fija: tok_para asignacion tok_hasta . exp tok_hacer instrucciones tok_fpara
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 186
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 149
+
+   82 alternativa: tok_si exp tok_flecha . instrucciones lista_opciones tok_fsi
+
+    tok_id         desplazar e ir al estado 38
+    tok_continuar  desplazar e ir al estado 39
+    tok_mientras   desplazar e ir al estado 40
+    tok_para       desplazar e ir al estado 41
+    tok_si         desplazar e ir al estado 42
+
+    operando       ir al estado 43
+    instrucciones  ir al estado 187
+    instruccion    ir al estado 45
+    asignacion     ir al estado 46
+    alternativa    ir al estado 47
+    iteracion      ir al estado 48
+    it_cota_exp    ir al estado 49
+    it_cota_fija   ir al estado 50
+    accion_ll      ir al estado 51
+
+
+estado 150
+
+   65 operando: operando . tok_punto operando
+   65         | operando tok_punto operando .
+   66         | operando . tok_abrec exp tok_cierrac
+   67         | operando . tok_puntero
+
+    tok_punto    desplazar e ir al estado 94
+    tok_abrec    desplazar e ir al estado 96
+    tok_puntero  desplazar e ir al estado 97
+
+    tok_punto    [reduce usando la regla 65 (operando)]
+    tok_abrec    [reduce usando la regla 65 (operando)]
+    tok_puntero  [reduce usando la regla 65 (operando)]
+    $default     reduce usando la regla 65 (operando)
+
+
+estado 151
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+   81 asignacion: operando tok_asignacion exp .
+
+    tok_igual        desplazar e ir al estado 126
+    tok_div          desplazar e ir al estado 127
+    tok_mod          desplazar e ir al estado 128
+    tok_oo           desplazar e ir al estado 129
+    tok_yy           desplazar e ir al estado 130
+    tok_mas          desplazar e ir al estado 131
+    tok_menos        desplazar e ir al estado 132
+    tok_por          desplazar e ir al estado 133
+    tok_menor        desplazar e ir al estado 134
+    tok_mayor        desplazar e ir al estado 135
+    tok_menor_igual  desplazar e ir al estado 136
+    tok_mayor_igual  desplazar e ir al estado 137
+    tok_distinto     desplazar e ir al estado 138
+
+    $default  reduce usando la regla 81 (asignacion)
+
+    oprel  ir al estado 139
+
+
+estado 152
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+   66 operando: operando tok_abrec exp . tok_cierrac
+
+    tok_igual        desplazar e ir al estado 126
+    tok_cierrac      desplazar e ir al estado 188
+    tok_div          desplazar e ir al estado 127
+    tok_mod          desplazar e ir al estado 128
+    tok_oo           desplazar e ir al estado 129
+    tok_yy           desplazar e ir al estado 130
+    tok_mas          desplazar e ir al estado 131
+    tok_menos        desplazar e ir al estado 132
+    tok_por          desplazar e ir al estado 133
+    tok_menor        desplazar e ir al estado 134
+    tok_mayor        desplazar e ir al estado 135
+    tok_menor_igual  desplazar e ir al estado 136
+    tok_mayor_igual  desplazar e ir al estado 137
+    tok_distinto     desplazar e ir al estado 138
+
+    oprel  ir al estado 139
+
+
+estado 153
+
+   74 instrucciones: instruccion tok_punto_y_coma instrucciones .
+
+    $default  reduce usando la regla 74 (instrucciones)
+
+
+estado 154
+
+   95 d_p_form: tok_ent . lista_id tok_dos_puntos tok_tipo
+
+    tok_id  desplazar e ir al estado 33
+
+    $default  reduce usando la regla 41 (lista_id)
+
+    lista_id  ir al estado 189
+
+
+estado 155
+
+   97 d_p_form: tok_e_s . lista_id tok_dos_puntos tok_tipo
+
+    tok_id  desplazar e ir al estado 33
+
+    $default  reduce usando la regla 41 (lista_id)
+
+    lista_id  ir al estado 190
+
+
+estado 156
+
+   96 d_p_form: tok_sal . lista_id tok_dos_puntos tok_tipo
+
+    tok_id  desplazar e ir al estado 33
+
+    $default  reduce usando la regla 41 (lista_id)
+
+    lista_id  ir al estado 191
+
+
+estado 157
+
+   91 a_cabecera: tok_id tok_abre d_par_form . tok_cierra tok_punto_y_coma
+
+    tok_cierra  desplazar e ir al estado 192
+
+
+estado 158
+
+   94 d_par_form: d_p_form . tok_punto_y_coma d_par_form
+
+    tok_punto_y_coma  desplazar e ir al estado 193
+
+
+estado 159
+
+   89 accion_d: tok_accion a_cabecera bloque tok_faccion .
+
+    $default  reduce usando la regla 89 (accion_d)
+
+
+estado 160
+
+   92 f_cabecera: tok_id tok_abre lista_d_var . tok_cierra tok_dev tok_tipo tok_punto_y_coma
+
+    tok_cierra  desplazar e ir al estado 194
+
+
+estado 161
+
+   90 funcion_d: tok_funcion f_cabecera bloque tok_dev . exp tok_ffuncion
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 195
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 162
+
+   34 lista_d_cte: tok_id tok_igual tok_literal_numerico tok_punto_y_coma lista_d_cte .
+
+    $default  reduce usando la regla 34 (lista_d_cte)
+
+
+estado 163
+
+   37 lista_d_cte: tok_id tok_igual tok_falso tok_punto_y_coma lista_d_cte .
+
+    $default  reduce usando la regla 37 (lista_d_cte)
+
+
+estado 164
+
+   36 lista_d_cte: tok_id tok_igual tok_verdadero tok_punto_y_coma lista_d_cte .
+
+    $default  reduce usando la regla 36 (lista_d_cte)
+
+
+estado 165
+
+   35 lista_d_cte: tok_id tok_igual tok_caracter tok_punto_y_coma lista_d_cte .
+
+    $default  reduce usando la regla 35 (lista_d_cte)
+
+
+estado 166
+
+   99 funcion_ll: tok_id tok_abre l_ll . tok_cierra
+
+    tok_cierra  desplazar e ir al estado 196
+
+
+estado 167
+
+   53 exp: tok_abre exp tok_cierra .
+
+    $default  reduce usando la regla 53 (exp)
+
+
+estado 168
+
+   21 d_tipo: tok_tabla tok_abrec expresion_t . tok_puntopunto expresion_t tok_cierrac tok_de tok_id
+
+    tok_puntopunto  desplazar e ir al estado 197
+
+
+estado 169
+
+   27 lista_campos: tok_id tok_dos_puntos . tok_tipo tok_punto_y_coma lista_campos
+
+    tok_tipo  desplazar e ir al estado 198
+
+
+estado 170
+
+   20 d_tipo: tok_tupla lista_campos tok_ftupla .
+
+    $default  reduce usando la regla 20 (d_tipo)
+
+
+estado 171
+
+   19 lista_d_tipo: tok_id tok_igual d_tipo tok_punto_y_coma lista_d_tipo .
+
+    $default  reduce usando la regla 19 (lista_d_tipo)
+
+
+estado 172
+
+   22 d_tipo: expresion_t tok_puntopunto expresion_t .
+
+    $default  reduce usando la regla 22 (d_tipo)
+
+
+estado 173
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   51    | exp tok_div exp .
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+
+    $default  reduce usando la regla 51 (exp)
+
+    oprel  ir al estado 139
+
+
+estado 174
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+   63    | exp tok_mod exp .
+
+    $default  reduce usando la regla 63 (exp)
+
+    oprel  ir al estado 139
+
+
+estado 175
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   57    | exp tok_oo exp .
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+
+    tok_div    desplazar e ir al estado 127
+    tok_mod    desplazar e ir al estado 128
+    tok_mas    desplazar e ir al estado 131
+    tok_menos  desplazar e ir al estado 132
+    tok_por    desplazar e ir al estado 133
+
+    $default  reduce usando la regla 57 (exp)
+
+    oprel  ir al estado 139
+
+
+estado 176
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   56    | exp . tok_yy exp
+   56    | exp tok_yy exp .
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+
+    tok_div    desplazar e ir al estado 127
+    tok_mod    desplazar e ir al estado 128
+    tok_mas    desplazar e ir al estado 131
+    tok_menos  desplazar e ir al estado 132
+    tok_por    desplazar e ir al estado 133
+
+    $default  reduce usando la regla 56 (exp)
+
+    oprel  ir al estado 139
+
+
+estado 177
+
+   48 exp: exp . tok_mas exp
+   48    | exp tok_mas exp .
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+
+    tok_div  desplazar e ir al estado 127
+    tok_mod  desplazar e ir al estado 128
+    tok_por  desplazar e ir al estado 133
+
+    $default  reduce usando la regla 48 (exp)
+
+    oprel  ir al estado 139
+
+
+estado 178
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   49    | exp tok_menos exp .
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+
+    tok_div  desplazar e ir al estado 127
+    tok_mod  desplazar e ir al estado 128
+    tok_por  desplazar e ir al estado 133
+
+    $default  reduce usando la regla 49 (exp)
+
+    oprel  ir al estado 139
+
+
+estado 179
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   50    | exp tok_por exp .
+   51    | exp . tok_div exp
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+
+    $default  reduce usando la regla 50 (exp)
+
+    oprel  ir al estado 139
+
+
+estado 180
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   61    | exp oprel exp .
+   63    | exp . tok_mod exp
+
+    tok_igual        desplazar e ir al estado 126
+    tok_div          desplazar e ir al estado 127
+    tok_mod          desplazar e ir al estado 128
+    tok_oo           desplazar e ir al estado 129
+    tok_yy           desplazar e ir al estado 130
+    tok_mas          desplazar e ir al estado 131
+    tok_menos        desplazar e ir al estado 132
+    tok_por          desplazar e ir al estado 133
+    tok_menor        desplazar e ir al estado 134
+    tok_mayor        desplazar e ir al estado 135
+    tok_menor_igual  desplazar e ir al estado 136
+    tok_mayor_igual  desplazar e ir al estado 137
+    tok_distinto     desplazar e ir al estado 138
+
+    tok_igual        [reduce usando la regla 61 (exp)]
+    tok_div          [reduce usando la regla 61 (exp)]
+    tok_mod          [reduce usando la regla 61 (exp)]
+    tok_oo           [reduce usando la regla 61 (exp)]
+    tok_yy           [reduce usando la regla 61 (exp)]
+    tok_mas          [reduce usando la regla 61 (exp)]
+    tok_menos        [reduce usando la regla 61 (exp)]
+    tok_por          [reduce usando la regla 61 (exp)]
+    tok_menor        [reduce usando la regla 61 (exp)]
+    tok_mayor        [reduce usando la regla 61 (exp)]
+    tok_menor_igual  [reduce usando la regla 61 (exp)]
+    tok_mayor_igual  [reduce usando la regla 61 (exp)]
+    tok_distinto     [reduce usando la regla 61 (exp)]
+    $default         reduce usando la regla 61 (exp)
+
+    oprel  ir al estado 139
+
+
+estado 181
+
+   40 lista_d_var: lista_id tok_dos_puntos d_tipo tok_punto_y_coma . lista_d_var
+
+    tok_id  desplazar e ir al estado 33
+
+    tok_dos_puntos  reduce usando la regla 41 (lista_id)
+    $default        reduce usando la regla 38 (lista_d_var)
+
+    lista_d_var  ir al estado 199
+    lista_id     ir al estado 35
+
+
+estado 182
+
+   39 lista_d_var: lista_id tok_dos_puntos tipo tok_punto_y_coma . lista_d_var
+
+    tok_id  desplazar e ir al estado 33
+
+    tok_dos_puntos  reduce usando la regla 41 (lista_id)
+    $default        reduce usando la regla 38 (lista_d_var)
+
+    lista_d_var  ir al estado 200
+    lista_id     ir al estado 35
+
+
+estado 183
+
+  100 l_ll: exp tok_coma . l_ll
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 145
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+    l_ll        ir al estado 201
+
+
+estado 184
+
+   98 accion_ll: tok_id tok_abre l_ll tok_cierra .
+
+    $default  reduce usando la regla 98 (accion_ll)
+
+
+estado 185
+
+   87 it_cota_exp: tok_mientras exp tok_hacer instrucciones . tok_fmientras
+
+    tok_fmientras  desplazar e ir al estado 202
+
+
+estado 186
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+   88 it_cota_fija: tok_para asignacion tok_hasta exp . tok_hacer instrucciones tok_fpara
+
+    tok_igual        desplazar e ir al estado 126
+    tok_div          desplazar e ir al estado 127
+    tok_hacer        desplazar e ir al estado 203
+    tok_mod          desplazar e ir al estado 128
+    tok_oo           desplazar e ir al estado 129
+    tok_yy           desplazar e ir al estado 130
+    tok_mas          desplazar e ir al estado 131
+    tok_menos        desplazar e ir al estado 132
+    tok_por          desplazar e ir al estado 133
+    tok_menor        desplazar e ir al estado 134
+    tok_mayor        desplazar e ir al estado 135
+    tok_menor_igual  desplazar e ir al estado 136
+    tok_mayor_igual  desplazar e ir al estado 137
+    tok_distinto     desplazar e ir al estado 138
+
+    oprel  ir al estado 139
+
+
+estado 187
+
+   82 alternativa: tok_si exp tok_flecha instrucciones . lista_opciones tok_fsi
+
+    tok_corchetes  desplazar e ir al estado 204
+
+    $default  reduce usando la regla 83 (lista_opciones)
+
+    lista_opciones  ir al estado 205
+
+
+estado 188
+
+   66 operando: operando tok_abrec exp tok_cierrac .
+
+    $default  reduce usando la regla 66 (operando)
+
+
+estado 189
+
+   95 d_p_form: tok_ent lista_id . tok_dos_puntos tok_tipo
+
+    tok_dos_puntos  desplazar e ir al estado 206
+
+
+estado 190
+
+   97 d_p_form: tok_e_s lista_id . tok_dos_puntos tok_tipo
+
+    tok_dos_puntos  desplazar e ir al estado 207
+
+
+estado 191
+
+   96 d_p_form: tok_sal lista_id . tok_dos_puntos tok_tipo
+
+    tok_dos_puntos  desplazar e ir al estado 208
+
+
+estado 192
+
+   91 a_cabecera: tok_id tok_abre d_par_form tok_cierra . tok_punto_y_coma
+
+    tok_punto_y_coma  desplazar e ir al estado 209
+
+
+estado 193
+
+   94 d_par_form: d_p_form tok_punto_y_coma . d_par_form
+
+    tok_ent  desplazar e ir al estado 154
+    tok_e_s  desplazar e ir al estado 155
+    tok_sal  desplazar e ir al estado 156
+
+    $default  reduce usando la regla 93 (d_par_form)
+
+    d_par_form  ir al estado 210
+    d_p_form    ir al estado 158
+
+
+estado 194
+
+   92 f_cabecera: tok_id tok_abre lista_d_var tok_cierra . tok_dev tok_tipo tok_punto_y_coma
+
+    tok_dev  desplazar e ir al estado 211
+
+
+estado 195
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+   90 funcion_d: tok_funcion f_cabecera bloque tok_dev exp . tok_ffuncion
+
+    tok_igual        desplazar e ir al estado 126
+    tok_div          desplazar e ir al estado 127
+    tok_ffuncion     desplazar e ir al estado 212
+    tok_mod          desplazar e ir al estado 128
+    tok_oo           desplazar e ir al estado 129
+    tok_yy           desplazar e ir al estado 130
+    tok_mas          desplazar e ir al estado 131
+    tok_menos        desplazar e ir al estado 132
+    tok_por          desplazar e ir al estado 133
+    tok_menor        desplazar e ir al estado 134
+    tok_mayor        desplazar e ir al estado 135
+    tok_menor_igual  desplazar e ir al estado 136
+    tok_mayor_igual  desplazar e ir al estado 137
+    tok_distinto     desplazar e ir al estado 138
+
+    oprel  ir al estado 139
+
+
+estado 196
+
+   99 funcion_ll: tok_id tok_abre l_ll tok_cierra .
+
+    $default  reduce usando la regla 99 (funcion_ll)
+
+
+estado 197
+
+   21 d_tipo: tok_tabla tok_abrec expresion_t tok_puntopunto . expresion_t tok_cierrac tok_de tok_id
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+    tok_caracter          desplazar e ir al estado 80
+
+    expresion_t  ir al estado 213
+    exp          ir al estado 83
+    operando     ir al estado 84
+    funcion_ll   ir al estado 85
+
+
+estado 198
+
+   27 lista_campos: tok_id tok_dos_puntos tok_tipo . tok_punto_y_coma lista_campos
+
+    tok_punto_y_coma  desplazar e ir al estado 214
+
+
+estado 199
+
+   40 lista_d_var: lista_id tok_dos_puntos d_tipo tok_punto_y_coma lista_d_var .
+
+    $default  reduce usando la regla 40 (lista_d_var)
+
+
+estado 200
+
+   39 lista_d_var: lista_id tok_dos_puntos tipo tok_punto_y_coma lista_d_var .
+
+    $default  reduce usando la regla 39 (lista_d_var)
+
+
+estado 201
+
+  100 l_ll: exp tok_coma l_ll .
+
+    $default  reduce usando la regla 100 (l_ll)
+
+
+estado 202
+
+   87 it_cota_exp: tok_mientras exp tok_hacer instrucciones tok_fmientras .
+
+    $default  reduce usando la regla 87 (it_cota_exp)
+
+
+estado 203
+
+   88 it_cota_fija: tok_para asignacion tok_hasta exp tok_hacer . instrucciones tok_fpara
+
+    tok_id         desplazar e ir al estado 38
+    tok_continuar  desplazar e ir al estado 39
+    tok_mientras   desplazar e ir al estado 40
+    tok_para       desplazar e ir al estado 41
+    tok_si         desplazar e ir al estado 42
+
+    operando       ir al estado 43
+    instrucciones  ir al estado 215
+    instruccion    ir al estado 45
+    asignacion     ir al estado 46
+    alternativa    ir al estado 47
+    iteracion      ir al estado 48
+    it_cota_exp    ir al estado 49
+    it_cota_fija   ir al estado 50
+    accion_ll      ir al estado 51
+
+
+estado 204
+
+   84 lista_opciones: tok_corchetes . exp tok_flecha instrucciones lista_opciones
+
+    tok_id                desplazar e ir al estado 70
+    tok_literal_numerico  desplazar e ir al estado 71
+    tok_abre              desplazar e ir al estado 72
+    tok_falso             desplazar e ir al estado 74
+    tok_no                desplazar e ir al estado 75
+    tok_verdadero         desplazar e ir al estado 78
+    tok_menos_unario      desplazar e ir al estado 79
+
+    exp         ir al estado 216
+    operando    ir al estado 84
+    funcion_ll  ir al estado 85
+
+
+estado 205
+
+   82 alternativa: tok_si exp tok_flecha instrucciones lista_opciones . tok_fsi
+
+    tok_fsi  desplazar e ir al estado 217
+
+
+estado 206
+
+   95 d_p_form: tok_ent lista_id tok_dos_puntos . tok_tipo
+
+    tok_tipo  desplazar e ir al estado 218
+
+
+estado 207
+
+   97 d_p_form: tok_e_s lista_id tok_dos_puntos . tok_tipo
+
+    tok_tipo  desplazar e ir al estado 219
+
+
+estado 208
+
+   96 d_p_form: tok_sal lista_id tok_dos_puntos . tok_tipo
+
+    tok_tipo  desplazar e ir al estado 220
+
+
+estado 209
+
+   91 a_cabecera: tok_id tok_abre d_par_form tok_cierra tok_punto_y_coma .
+
+    $default  reduce usando la regla 91 (a_cabecera)
+
+
+estado 210
+
+   94 d_par_form: d_p_form tok_punto_y_coma d_par_form .
+
+    $default  reduce usando la regla 94 (d_par_form)
+
+
+estado 211
+
+   92 f_cabecera: tok_id tok_abre lista_d_var tok_cierra tok_dev . tok_tipo tok_punto_y_coma
+
+    tok_tipo  desplazar e ir al estado 221
+
+
+estado 212
+
+   90 funcion_d: tok_funcion f_cabecera bloque tok_dev exp tok_ffuncion .
+
+    $default  reduce usando la regla 90 (funcion_d)
+
+
+estado 213
+
+   21 d_tipo: tok_tabla tok_abrec expresion_t tok_puntopunto expresion_t . tok_cierrac tok_de tok_id
+
+    tok_cierrac  desplazar e ir al estado 222
+
+
+estado 214
+
+   27 lista_campos: tok_id tok_dos_puntos tok_tipo tok_punto_y_coma . lista_campos
+
+    tok_id  desplazar e ir al estado 121
+
+    $default  reduce usando la regla 26 (lista_campos)
+
+    lista_campos  ir al estado 223
+
+
+estado 215
+
+   88 it_cota_fija: tok_para asignacion tok_hasta exp tok_hacer instrucciones . tok_fpara
+
+    tok_fpara  desplazar e ir al estado 224
+
+
+estado 216
+
+   48 exp: exp . tok_mas exp
+   49    | exp . tok_menos exp
+   50    | exp . tok_por exp
+   51    | exp . tok_div exp
+   56    | exp . tok_yy exp
+   57    | exp . tok_oo exp
+   61    | exp . oprel exp
+   63    | exp . tok_mod exp
+   84 lista_opciones: tok_corchetes exp . tok_flecha instrucciones lista_opciones
+
+    tok_flecha       desplazar e ir al estado 225
+    tok_igual        desplazar e ir al estado 126
+    tok_div          desplazar e ir al estado 127
+    tok_mod          desplazar e ir al estado 128
+    tok_oo           desplazar e ir al estado 129
+    tok_yy           desplazar e ir al estado 130
+    tok_mas          desplazar e ir al estado 131
+    tok_menos        desplazar e ir al estado 132
+    tok_por          desplazar e ir al estado 133
+    tok_menor        desplazar e ir al estado 134
+    tok_mayor        desplazar e ir al estado 135
+    tok_menor_igual  desplazar e ir al estado 136
+    tok_mayor_igual  desplazar e ir al estado 137
+    tok_distinto     desplazar e ir al estado 138
+
+    oprel  ir al estado 139
+
+
+estado 217
+
+   82 alternativa: tok_si exp tok_flecha instrucciones lista_opciones tok_fsi .
+
+    $default  reduce usando la regla 82 (alternativa)
+
+
+estado 218
+
+   95 d_p_form: tok_ent lista_id tok_dos_puntos tok_tipo .
+
+    $default  reduce usando la regla 95 (d_p_form)
+
+
+estado 219
+
+   97 d_p_form: tok_e_s lista_id tok_dos_puntos tok_tipo .
+
+    $default  reduce usando la regla 97 (d_p_form)
+
+
+estado 220
+
+   96 d_p_form: tok_sal lista_id tok_dos_puntos tok_tipo .
+
+    $default  reduce usando la regla 96 (d_p_form)
+
+
+estado 221
+
+   92 f_cabecera: tok_id tok_abre lista_d_var tok_cierra tok_dev tok_tipo . tok_punto_y_coma
+
+    tok_punto_y_coma  desplazar e ir al estado 226
+
+
+estado 222
+
+   21 d_tipo: tok_tabla tok_abrec expresion_t tok_puntopunto expresion_t tok_cierrac . tok_de tok_id
+
+    tok_de  desplazar e ir al estado 227
+
+
+estado 223
+
+   27 lista_campos: tok_id tok_dos_puntos tok_tipo tok_punto_y_coma lista_campos .
+
+    $default  reduce usando la regla 27 (lista_campos)
+
+
+estado 224
+
+   88 it_cota_fija: tok_para asignacion tok_hasta exp tok_hacer instrucciones tok_fpara .
+
+    $default  reduce usando la regla 88 (it_cota_fija)
+
+
+estado 225
+
+   84 lista_opciones: tok_corchetes exp tok_flecha . instrucciones lista_opciones
+
+    tok_id         desplazar e ir al estado 38
+    tok_continuar  desplazar e ir al estado 39
+    tok_mientras   desplazar e ir al estado 40
+    tok_para       desplazar e ir al estado 41
+    tok_si         desplazar e ir al estado 42
+
+    operando       ir al estado 43
+    instrucciones  ir al estado 228
+    instruccion    ir al estado 45
+    asignacion     ir al estado 46
+    alternativa    ir al estado 47
+    iteracion      ir al estado 48
+    it_cota_exp    ir al estado 49
+    it_cota_fija   ir al estado 50
+    accion_ll      ir al estado 51
+
+
+estado 226
+
+   92 f_cabecera: tok_id tok_abre lista_d_var tok_cierra tok_dev tok_tipo tok_punto_y_coma .
+
+    $default  reduce usando la regla 92 (f_cabecera)
+
+
+estado 227
+
+   21 d_tipo: tok_tabla tok_abrec expresion_t tok_puntopunto expresion_t tok_cierrac tok_de . tok_id
+
+    tok_id  desplazar e ir al estado 229
+
+
+estado 228
+
+   84 lista_opciones: tok_corchetes exp tok_flecha instrucciones . lista_opciones
+
+    tok_corchetes  desplazar e ir al estado 204
+
+    $default  reduce usando la regla 83 (lista_opciones)
+
+    lista_opciones  ir al estado 230
+
+
+estado 229
+
+   21 d_tipo: tok_tabla tok_abrec expresion_t tok_puntopunto expresion_t tok_cierrac tok_de tok_id .
+
+    $default  reduce usando la regla 21 (d_tipo)
+
+
+estado 230
+
+   84 lista_opciones: tok_corchetes exp tok_flecha instrucciones lista_opciones .
+
+    $default  reduce usando la regla 84 (lista_opciones)

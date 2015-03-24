@@ -1,0 +1,65 @@
+eil76 	kroA100	   d198   lin318    att532    rat783
+538     21382	  15780	  42029	     27686     8806
+
+SH
+
+./acotsp --tsplibfile att532.tsp --tries 5 --as --localsearch 0 --alpha 1 --beta 2 --rho 0.2 --time 900 --optimum 27686 --ants 15
+
+att532: Observación: en menos de 2 mins ha hecho 3000 iteraciones y en los 13 restantes sólo llega hasta +5500
+
+rat783: óptimo en la it. 132 a los 10 seg
+
+lin: muy pocas iteraciones (9500) en comparacion con d198 (43000) en el mismo tiempo (600)
+
+los de menor tiempo iteran MUCHO más rápido (275000 veces para eil76) y se aproximan más al óptimo por esta razón.
+
+SH-BL
+
+cd Mahaigaina/BIO/prac1/ACOTSP.V1.0/
+
+./acotsp --tsplibfile  --tries 5 --as --localsearch 3 --nnls 40 --alpha 1 --beta 2 --rho 0.2 --time 00 --optimum  --ants 15
+
+
+./acotsp --tsplibfile d198.tsp --tries 5 --as --localsearch 3 --nnls 40 --alpha 1 --beta 2 --rho 0.2  --time 600 --optimum 15780 --ants 15
+
+./acotsp --tsplibfile att532.tsp --tries 5 --as --localsearch 3 --nnls 40 --alpha 1 --beta 2 --rho 0.2  --time 900 --optimum 27686 --ants 15
+
+./acotsp --tsplibfile rat783.tsp --tries 5 --as --localsearch 3 --nnls 40 --alpha 1 --beta 2 --rho 0.2  --time 900 --optimum 8806 --ants 15
+
+
+
+
+SCH
+
+./acotsp --tsplibfile --tries 5 --acs --localsearch 0 --alpha 1 --beta 2 --rho 0.2 --q0 0.8 --time 00 --optimum  --ants 15
+
+SCH-BL
+
+./acotsp --tsplibfile  --tries 5 --acs --localsearch 3 --nnls 40 --alpha 1 --beta 2 --rho 0.2 --q0 0.8 --time 00 --optimum  --ants 15
+
+
+
+
+
+
+SHMM
+
+./acotsp --tsplibfile --tries 5 --mmas --localsearch 0 --alpha 1 --beta 2 --rho 0.2 --time 00 --optimum  --ants 15
+
+SHMM-BL
+
+./acotsp --tsplibfile  --tries 5 --mmas --localsearch 3 --nnls 40 --alpha 1 --beta 2 --rho 0.2 --time 00 --optimum  --ants 15
+
+
+
+
+
+SHMP
+
+./acotsp --tsplibfile --tries 5 --bwas --localsearch 0 --alpha 1 --beta 2 --rho 0.2 --time 00 --optimum  --ants 15
+
+SHMP-BL
+
+./acotsp --tsplibfile  --tries 5 --bwas --localsearch 3 --nnls 40 --alpha 1 --beta 2 --rho 0.2 --time 00 --optimum  --ants 15
+
+

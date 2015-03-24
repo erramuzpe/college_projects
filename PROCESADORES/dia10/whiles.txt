@@ -1,0 +1,27 @@
+identificador        [[:alpha:]][[:alnum:]_]*
+idbooleano	b[[:alnum:]_]*
+entero               [[:digit:]]+
+comentarioPRE	\{PRE([^\}]|\\\})*\}
+comentarioPOS	\{POST([^\}]|\\\})*\}
+comentario	\{([^\}]|\\\})*\}
+cadena_caracteres	\"([^\"]|\\\")*\"
+oprel	"=="|"<"|">"|"<="|">="|"<>"
+
+%%
+
+{idbooleano}	{ yylval.str = (char *) malloc((strlen(yytext) +1) * sizeof(char)); 
+		  strcpy(yylval.str,yytext); return tok_idbool; }
+{identificador} { yylval.str = (char *) malloc((strlen(yytext) +1) * sizeof(char)); 
+		  strcpy(yylval.str,yytext); return tok_id; }
+{entero}        { yylval.ent=atoi(yytext); return tok_entero; }
+{comentarioPRE}	{ return tok_comentarioPRE; }
+{comentarioPOS}	{ return tok_comentarioPOST; }
+{comentario}
+\"[[:alpha:]]\"	{ yylval.str = (char *) malloc((strlen(yytext) +1) * sizeof(char)); 
+		  strcpy(yylval.str,yytext); return tok_caracter; }
+{cadena_caracteres}	{ yylval.str = (char *) malloc((strlen(yytext) +1) * sizeof(char)); 
+		  strcpy(yylval.str,yytext); return tok_cadena; }
+
+
+[[:space:]]
+.	{ printf("TOKEN %s: Caracter invalido\n", yytext); }

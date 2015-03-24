@@ -1,0 +1,141 @@
+Conflictos de Reducción/Reducción =====
+
+Se produce un conflicto de reducción/reducción si hay dos o más reglas que pueden aplicarse a la misma secuencia de entrada. Esto suele indicar un error serio en la gramática.
+
+Por ejemplo, aquí hay un intento fallido de definir una secuencia de cero o más agrupaciones de ##palabra##.
+
+secuencia: /* vacío */
+{ printf ("secuencia vacía\n"); }
+| posiblepalabra
+| secuencia palabra
+{ printf ("palabra añadida %s\n", $2); }
+;
+posiblepalabra: /* vacío */
+{ printf ("posiblepalabra vacío\n"); }
+| palabra
+{ printf ("palabra sencilla %s\n", $1); }
+;
+
+El error es una ambigüedad: hay más de una manera de analizar una ##palabra## sencilla en una ##secuencia##. Esta podría reducirse a una ##posiblepalabra## y entonces en una ##secuencia## mediante la segunda regla. Alternativamente, la cadena vacía se prodría reducir en una ##secuencia## mediante la primera regla, y esto prodría combinarse con la ##palabra## utilizando la tercera regla para ##secuencia##.
+
+Existe también más de una manera de reducir la cadena vacía en una ##secuencia##. Esto se puede hacer directamente mediante la primera regla, o indirectamente mediante ##posiblepalabra## y entonces la segunda regla.
+
+Podría pensar que esto es una distinción sin ninguna diferencia, porque esto no cambia si una entrada particular es válida o no. Pero sí afecta en las acciones que son ejecutadas. Una ordenación del análisis ejecuta la acción de la segunda regla; la otra ejecuta la acción de la primera regla y la acción de la tercera regla. En este ejemplo, la salida del programa cambia.
+
+Bison resuelve un conflicto reducción/reducción eligiendo el uso de la regla que aparece en primer lugar dentro de la gramática, pero es muy arriesgado contar con esto. Cada conflicto de reducción/reducción se debe estudiar y normalmente eliminar. Aquí está la manera apropiada de definir ##secuencia##:
+
+secuencia: /* vacío */
+{ printf ("secuencia vacía\n"); }
+| secuencia palabra
+{ printf ("palabra añadida %s\n", $2); }
+;
+
+Aquí hay otro error común que produce un conflicto reducción/reducción.
+
+secuencia: /* vacío */
+| secuencia palabras
+| secuencia redirecciones
+;
+
+palabras: /* vacío */
+| palabras palabra
+;
+
+redirecciones: /* vacío */
+| redirecciones redireccion
+;
+
+La intención aquí es definir una secuencia que pueda contener ya sea agrupaciones ##palabra## o ##redireccion##. Las definiciones individuales de ##secuencia##, ##palabras## y ##redirecciones## están libres de errores, pero las tres juntas producen una ambigüedad sutil: ¡incluso una entrada vacía puede analizarse en una infinidad de maneras diferentes!
+
+Considere esto: la cadena vacía podría ser una ##palabras##. O podrían ser dos ##palabras## en una fila, o tres, o cualquier número. Podría igualmente ser una ##redirecciones##, o dos, o cualquier número. O podría ser una ##palabras## seguido de tres ##redirecciones## y otra ##palabras##. Y así sucesivamente.
+
+Aquí hay dos maneras de corregir estas reglas. Primero, convertirlo en una secuencia de un sólo nivel:
+
+secuencia: /* vacío */
+| secuencia palabra
+| secuencia redireccion
+;
+
+Segundo, prevenir bien un ##palabras## o un ##redireccion## de que sea vacío:
+
+secuencia: /* vacío */
+| secuencia palabras
+| secuencia redirecciones
+;
+
+palabras: palabra
+| palabras palabra
+;
+
+redirecciones: redireccion
+| redirecciones redireccion
+;
+
+
+
+
+
+
+
+
+
+
+
+Conflictos Misteriosos de Reducción/Reducción =====
+
+Algunas veces con los conflictos reducción/reducción puede suceder que no parezcan garantizados. Aquí hay un ejemplo:
+
+%token ID
+
+%%
+def: espc_param espc_return ','
+;
+espec_param:
+tipo
+| lista_nombre ':' tipo
+;
+espec_return:
+tipo
+| nombre ':' tipo
+;
+tipo: ID
+;
+nombre: ID
+;
+lista_nombre:
+nombre
+| nombre ',' lista_nombre
+;
+
+Parecería que esta gramática puede ser analizada con sólo un único token de preanálisis: cuando se está leyendo un ##espc_param##, un ##ID## es un ##nombre## si le sigue una coma o un punto, o un ##tipo## si le sigue otro ##nombre##. En otras palabras, esta gramática es LR(1).
+
+Sin embargo, Bison, como la mayoría de los generadores de analizadores sintácticos, no pueden en realidad manejar todas las gramáticas LR(1). En esta gramática, los dos contextos, aquél después de un ##ID## al principio de un ##espc_param## y también al principio de un ##espc_return##, son lo suficientemente similares para que Bison asuma que son el mismo. Estos parecen similares porque estarían activos el mismo conjunto de reglas--la regla de reducción a un ##nombre## y aquella para la reducción de ##tipo##. Bison es incapaz de determinar a ese nivel de procesamiento que las reglas requerirían diferentes tokens de preanálisis en los dos contextos, así que construye un solo estado del analizador para ambos. Combinando los dos contextos provoca un conflicto más tarde. En la terminología de los analizadores sintácticos, este suceso significa que la gramática no es LALR(1).
+
+En general, es mejor arreglar las deficiencias que documentarlas. Pero esta deficiencia en particular es intrínsecamente difícil de arreglar; los generadores de analizadores sintácticos que pueden manejar gramáticas LR(1) son duros de escribir y tienden a producir analizadores que son muy grandes. En la práctica, Bison es más útil como es ahora.
+
+Cuando el problema aparece, puede a veces arreglarlo identificando los dos estados del analizador que están siendo confundidos, y añadir algo para hacerlos pareceer distintos. En el ejemplo anterior, añadiendo una regla a ##espc_return## como a continuación hace que el problema desaparezca:
+
+%token BOGUS
+...
+%%
+...
+espc_return:
+tipo
+| nombre ':' tipo
+/* Esta regla nunca se usa. */
+| ID BOGUS
+;
+
+Esto corrige el problema porque introduce la posibilidad de una regla activa adicional en el contexto después de ##ID## al principio de un ##espc_param##, así que los dos contextos reciben estados distinto del analizador. Siempre que el token ##BOGUS## no se genere nunca por ##yylex##, la regla adicional no podrá alterar la manera en la que la entrada es analizada.
+
+En este ejemplo en particular, hay otra forma de resolver este problema: reescribir la regla de ##espc_return## para usar ##ID## directamente en lugar de hacerlo a través de ##nombre##. Esto también provoca que los dos contextos confusos tengan conjuntos de reglas activas distintas, porque la de ##espc_return## activa la regla alterada para ##espc_return## en vez que la de ##nombre##.
+
+espc_param:
+tipo
+| lista_nombre ':' tipo
+;
+espc_return:
+tipo
+| ID ':' tipo
+;
+

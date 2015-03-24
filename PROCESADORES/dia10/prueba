@@ -1,0 +1,11 @@
+nodo *newtemp(tablasimbolos *t, int id, int idtemp)
+{
+	tabla_simbolos *aux;
+	aux=(celda *)malloc(sizeof(tabla_simbolos));
+	aux->nodoTS.id=id;
+	aux->nodoTS.nombre = (char *) malloc((8) * sizeof(char));  // ?¿ esta bien? 7+1
+	//para comprobar: sprintf(aux->nodotabla.nombre,"tmp%d",idtemp);
+	aux->sig=*p;
+	*p=aux;
+	return &(aux->nodotabla);  //comprobar
+}

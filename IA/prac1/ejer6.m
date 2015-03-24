@@ -1,0 +1,40 @@
+%ejer 6
+
+x=[1:10];
+s(1:4)=1;
+s(5:10)=0;
+
+ap=(5-x)./(5-4)
+ap(1:4)=0;
+ap(5:6)=1;
+ap(7:10)=0;
+
+n=(5-x)./(5-4)
+n(1:6)=0;
+n(7:9)=1;
+n(9:10)=0;
+
+sb=(5-x)./(5-4)
+sb(1:8)=0;
+sb(9:10)=1;
+
+
+
+plot(x,s,'g'), title('NOTAS')
+hold on
+plot(x,ap,'r')
+hold on
+plot(x,n,'k')
+hold on
+plot(x,sb,'b')
+legend('S','AP','N','SB')
+hold off
+
+not = notable(8.6);
+sobre = sobresaliente(8.6);
+grado = min(1,not+sobre)
+
+%El grado de verdad de N o SB = 1
+
+
+

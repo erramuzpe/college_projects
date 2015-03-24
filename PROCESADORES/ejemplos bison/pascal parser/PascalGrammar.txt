@@ -1,0 +1,45 @@
+        MicroPascal Grammar:
+
+        program   ->  program_header block "."
+        program_header   ->  "program" identifier ";"
+        block   ->   declarations compound_statement
+        declarations   ->   declarations declaration | e
+        declaration   ->   "var" variable_decls | procedure_decl
+        variable_decls   ->   variable_decls variable_decl |
+                              variable_decl
+        variable_decl   ->   identifier_list ":" identifier ";"
+        procedure_decl   ->   procedure_header block ";"
+        procedure_header   ->   "procedure" identifier
+                                "(" parameter_list ")" ";" |
+                                "procedure" identifier ";"
+        parameter_list   ->   parameter_group |
+                                parameter_list ";" parameter_group
+        parameter_group   ->   "var" identifier_list ":" identifier |
+                                identifier_list ":" identifier
+        compound_statement   ->  "begin" statement_list "end"
+        statement_list   ->  statement | statement_list ";"
+                                statement
+        statement   ->  e // empty statement // |
+                        identifier |
+                        identifier "(" expression_list ")" |
+                        identifier ":=" expression |
+                        "while" expression "do" statement |
+                        "repeat" statement_list "until" expression |
+                        "if" expression "then" statement |
+                        "if" expression "then" statement
+                        "else" statement |
+                        compound_statement
+        expression_list   ->  expression | expression_list "," expression
+        expression   ->  simple_expression |
+                         simple_expression rel_op simple_expression
+        simple_expression   ->  term | add_op term |
+                                simple_expression add_op term
+        term   ->  factor | term mul_op factor
+        factor   ->  identifier |
+                     constant |
+                     "(" expression ")"
+        constant   ->  string_constant | number
+        number   ->  unsigned_integer |
+                        floating_point
+        identifier_list   ->  identifier |
+                              identifier_list "," identifier

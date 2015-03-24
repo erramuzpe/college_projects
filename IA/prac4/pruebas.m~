@@ -1,0 +1,15 @@
+% Pruebas para vect prop.
+
+for imagen=100:100:400
+    for carpeta=0:4
+        for numvect=1:20
+            if numvect<=numim*4
+                bien = prac4(carpeta,strcat(num2str(imagen),'.png'),numvect);
+                if bien==0
+                    contador=contador + 1;
+                end
+                
+            end
+        end
+    end
+end

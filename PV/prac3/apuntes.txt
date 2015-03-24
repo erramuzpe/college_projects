@@ -1,0 +1,67 @@
+PRAC3
+
+Angel
+
+Reconocimiento de palabras aisladas usando programación dinámica.
+
+2 PARTES:
+
+1.- Análisis (LPC con coeficiente ak (asubk) )
+2.- Reconocimiento (DTW :palabras aisladas)
+
+
+2.1.- Transformaremos los LPC a coeficientes CEPSTRUM, para poder evaluar de forma euclídea. A partir de los ak obtenemos ck (csubk).
+Está preparado para los LPC que devuelve MATLAB, nosotros cambiabanos los signos en la práctica anterior. En esta práctica no hay que cambiar el signo.
+lpc()->no cambiar signos.
+
+Los segmentos tienen un solapamiento del 50%, calculamos ak (p=10) y luego ck
+(12 coef.). Nos van a faltar ks, las ponemos a cero. 
+
+2.2.- Lo primero que se necesitan son los patrones. 
+Tenemos 3 ficheros por cada palabra: uno.x21 (160) uno.x22 (200) uno.x23 (180)
+Cogemos la palabra media y ese será nuestro patrón (en este caso uno.x23).
+Utilizando estos patrones, deberemos identificar los demas. El que de menos distancia, se reconocerá. 
+Tenemos que reconocer las 20 restantes (acierto del 95%, una o dos palabras).
+
+Si nos queremos complicar, tenemos que crear nuevos patrones usando la media.
+
+Nos puede interesar la estructura "cell".
+
+http://quidel.inele.ufro.cl/~cesar/mem/voz/voz.htm
+
+########################
+########################
+
+3. Análisis de Predicción Lineal.
+
+Como última medida relacionada con el dominio de la frecuencia, recurriremos a la técnica de Predicción Lineal. En esta práctica nos fijaremos especialmente en las posibilidades que la Predicción Lineal tiene como técnica de Estimación Espectral, dejando para la práctica siguiente otras consideraciones más relacionadas con modelos de producción de voz. Por ello, por ejemplo, en esta práctica no prestaremos atención a temas relacionados con el error de predicción.
+
+
+Una forma simple de obtener en MATLAB  P coeficientes de predicción lineal sobre un segmento de señal x , mediante el método de autocorrelación, sería:
+
+	>>P= …. (orden de predicción elegido)
+	>>Rs=xcorr(x);
+	>>R=Rs(length(x):length(x)+P-1);
+	>>r=Rs(length(x)+1:length(x)+P);
+	>>RT=toeplitz(R);
+	>>a=inv(RT)*r;
+
+Partiendo del vector de coeficientes "a" obtenido, podríamos representar la envolvente espectral del sonido x utilizando la función MATLAB FREQZ tal y como sigue:
+
+	>>[h,w]=freqz(1, [1 -a'], 512);
+	>>plot(20*log(abs(h)))
+
+De esta forma podremos comparar la transformada de Fourier de x con la envolvente obtenida, y ver la correspondencia entre ambas representaciones. ¿Por qué hay un desajuste de energía entre las dos representaciones -Transformada de Fourier y Envolvente de Predicción Lineal?. ¿Cómo se debería tener presente la energía?
+
+
+Finalmente, haciendo uso de las funciones MATLAB ROOTS y ANGLE podemos intentar obtener las raices del denominador del filtro que representa la envolvente espectral (función ROOTS) y la fase de dichas raices o polos (función ANGLE, que da la fase en radianes) que podrán corresponder a la posición de los formantes. 
+
+
+##################
+DTW ; Prog. dinámica:
+
+http://labrosa.ee.columbia.edu/matlab/dtw/
+
+Para memoria:
+http://electronicatecnoparque.blogspot.com.es/2010/11/sistema-de-reconocimiento-de-palabras.html
+

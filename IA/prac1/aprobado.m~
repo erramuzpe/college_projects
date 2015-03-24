@@ -1,0 +1,10 @@
+function [ao] = aprobado(x)
+    if x>=4 && x>7
+        ap=0;
+    elseif x>=5 && x>6
+        ap=1;
+    elseif x>4 && x<=5
+        ap = 5-x;
+    end
+end
+    

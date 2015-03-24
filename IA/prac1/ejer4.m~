@@ -1,0 +1,17 @@
+%Utilizando la expresión del primer ejemplo, donde el conjunto E es el de
+%personas adultas, da la función de pertenencia de los conjuntos joven y
+%mayor, de manera que la suma de las pertenencias de cualquier edad en todos
+%los conjuntos no sea mayor que 1.
+
+x=[1:1000]
+
+
+adultos= 1./(1+(x-50)./10.^4)
+
+
+jovenes=imcomplement(adultos)
+mayores(50:100)=0
+
+
+mayores=imcomplement(adultos)
+mayores(1:50)=0

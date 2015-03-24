@@ -1,0 +1,53 @@
+http://gemini.udistrital.edu.co/comunidad/estudiantes/ocala/matlabTut/
+#######
+PRAC1
+#######
+
+se cojen 240 muestras a lo largo del fichero. Ya están filtradas, no hay que hacer el paso 1.
+Desplazamos 15 ms, la mitad. Se deja un salto de 120 muestras y sobre las 240 muestras siguientes analizamos. 
+
+Las primeras y ultimas 80 muestras. Cojemos el máximo de cada una y nos quedamos con el minimo de los dos. Este minimo es que vamos a utilizar para hacer center clipping.
+
+siguiente hacer funcion "autocor" y aplicar sobre nuestra muestra. Si es sonora podra identificar un pico maximo. si es sorda, no hay pico.
+
+Idea: decidir si es sonoro o sordo. si es sonoro determinar su pitch.
+Para determinar si es sonoro o sordo, tenemos que ver si el pico de la autocor. esta por encima de un 30% de la energia de la señal es sonora.
+
+Si funciona esto, mejoramos salida.
+
+#######
+PRAC2
+#######
+
+http://corpiano.comlu.com/accfile001/PV/pract2.htm
+
+LPC analizar y sintetizar. 
+
+ANALISIS:
+
+Coger señal. Segmentarla, 15 ms (120 muestras más o menos). Calcular para cada segmento coef. LPC.
+instruccion en Matlab a(subk) = lpc(x,p). a(subk) es un vector. Nos va devolver los coef. suponiendo que a0 vale 1. Entonces, el primer término vale 1. los siguientes ax vienen con el signo cambiado. (es bueno cambiarlo) Esto nos da información sobre el tracto vocal. 
+
+La ecuación de análisis (viene en la memoria). Tenemos que tener en cuenta la trama anterior para que funcione bien. Buscar un buen G que se quede con energia 1. 
+
+tres partes. u(n) -> G e(n)-> LPC-> s(n)
+
+u(n)-> Trans. fourier. (abs(fft)) representacion en frequencia de la excitacion. si es sonora-> la inversa entre picos es el pitch ?¿
+
+sobre el LPC podemos calcular la respuesta impulsiva. le meto todo ceros menos un 1 al principio. ese vector nos da la res.impul.. aplicandole de nuevo la fft podemos verla en frecuencia y podremos ver la envolvente de la señal. 
+
+si hacemos la fft de la señal de voz (s(n)), obtendremos el espectro de la señal de voz. donde deberia verificarse que es la mult de las dos fft anteriores. (comprobar visualmente).
+
+hay que tener en cuenta que fft es una aproximacion de la verdadera TF. Podemos no tener en cuenta lo que sobra.
+
+SINTESIS:
+
+si la señal es sonora tienen pulso. si es sorda, ruido. Esto va a ser nuestra señal u(n), le aplicamos una ganancia -> e(n) (excitacion) -> LPC -> obtenemos s(n). 
+
+despues del analisis sabemos si es sonora o sorda. por la prac1 sabemos el periodo de pitch. tambien tenemos G y ak por el analisis.  
+
+si es sonora meto T (t entre pulsos). si es sorda ruido blanco (rand). lo hacemos y ya tenemos nuestra voz. ahora, jugar con los parametros: si alargamos el periodo de pitch más grave. mas corto, mas agudo. si se mantiene el pitch a valor constante->robot. 
+
+
+
+

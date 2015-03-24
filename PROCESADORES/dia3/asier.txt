@@ -1,0 +1,68 @@
+//Compilar
+//Bison    bison -d -ly analizador.y
+//	   flex x.lex
+//	   gcc -o x lex.yy.c -lfl
+
+
+main(int argc, char *argv[] )
+{
+	extern FILE *yyin;
+	++argv; --argc;
+
+	yyin = fopen( argv[0], "r" );
+  	if (yyin == NULL) {
+   	  fprintf(stderr, "Cannot open %s file\n", argv[0]);
+  	  return 1;
+  	}
+	yyparse();
+}
+
+
+//para el lex
+entero                  [[:digit:]]+
+comentPRE		\{PRE([^\}]|\\\})*\}
+comentPOS		\{POST([^\}]|\\\})*\}
+coment			\{([^\}]|\\\})*\}
+cadena_caracteres	\"([^\"]|\\\")*\"
+oprel			"=="|"<"|">"|"<="|">="|"<>"
+
+
+
+en lex recibir y pasar a bison
+":"	{ return tok_dp; }
+
+
+bison definido y usar en reglas gramaticales
+%token tok_dp
+
+
+%right tok_asig
+%left tok_suma tok_resta
+%left tok_mul tok_div tok_mod 
+%left tok_puntero
+%left tok_punto
+%left tok_y tok_o
+
+
+:::::::::
+lista_campos: 
+	| tok_id tok_dp tipo tok_puntocoma lista_campos
+;
+variable: tok_id tok_coma variable
+	| tok_id tok_dp tipoidvar
+:::::::::
+
+
+%union semanticRecord	/* The Semantic Records */
+{
+	int intval;		/* For Integer Values */
+	char *id;		/* For Identifiers */
+	struct lbs *lbls	/* For label back-patching */
+}
+struck lbs
+{
+	int for_goto;
+	int for_jump;
+};
+
+

@@ -1,0 +1,7 @@
+function [s] = suspenso(x)
+    if x>=5
+        s=0;
+    elseif x<4
+        g=1;
+        
+        

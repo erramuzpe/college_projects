@@ -1,0 +1,613 @@
+sh-3.2$ cd home
+sh-3.2$ cd user
+sh-3.2$ cd cma
+sh-3.2$ ls
+librealea.tgz macmachains.tgz
+sh-3.2$ tar xvf librealea.tgz
+realea/
+realea/problem/
+realea/problem/benchmark.cc
+realea/problem/problemcec2005.cc
+realea/problem/functions.h
+realea/problem/f7/
+realea/problem/f7/RanTable.java
+realea/problem/f7/FastFractal.class
+realea/problem/f7/fractal.o
+realea/problem/f7/fastfractal_doubledip.cpp
+realea/problem/f7/FractalFunction1D.java
+realea/problem/f7/UnitFunction1D.java
+realea/problem/f7/m.cpp
+realea/problem/f7/FastFractal.java
+realea/problem/f7/RanTable.class
+realea/problem/f7/RanQD1.class
+realea/problem/f7/DoubleDip.class
+realea/problem/f7/fastfractal_doubledip.o
+realea/problem/f7/FractalFunction1D.class
+realea/problem/f7/RanQD1.java
+realea/problem/f7/DoubleDip.java
+realea/problem/f7/UnitFunction1D.class
+realea/problem/problemtest.h
+realea/problem/cec08data.h
+realea/problem/problemcec2008f6.h
+realea/problem/problemsoft.h
+realea/problem/funcec08f7.cc
+realea/problem/problembbob2009.cc
+realea/problem/funcec08f7.h
+realea/problem/newutil.h
+realea/problem/problemcec2008.h
+realea/problem/cec2005/
+realea/problem/cec2005/rand.cc
+realea/problem/cec2005/problemcec2005.cc
+realea/problem/cec2005/global.h
+realea/problem/cec2005/functions.h
+realea/problem/cec2005/sub.h
+realea/problem/cec2005/input_data/
+realea/problem/cec2005/input_data/schwefel_102_data.mat
+realea/problem/cec2005/input_data/hybrid_func3_HM_D30.txt
+realea/problem/cec2005/input_data/hybrid_func1_data.txt
+realea/problem/cec2005/input_data/griewank_M_D50.txt
+realea/problem/cec2005/input_data/elliptic_M_D30.txt
+realea/problem/cec2005/input_data/weierstrass_data.mat
+realea/problem/cec2005/input_data/test_data_func7.txt
+realea/problem/cec2005/input_data/hybrid_func4_M_D30.txt
+realea/problem/cec2005/input_data/schwefel_206_data.txt
+realea/problem/cec2005/input_data/hybrid_func2_M_D2.txt
+realea/problem/cec2005/input_data/elliptic_M_D2.txt
+realea/problem/cec2005/input_data/weierstrass_M_D10.txt
+realea/problem/cec2005/input_data/high_cond_elliptic_rot_data.txt
+realea/problem/cec2005/input_data/test_data_func13.txt
+realea/problem/cec2005/input_data/elliptic_M_D30.mat
+realea/problem/cec2005/input_data/ackley_M_D2.mat
+realea/problem/cec2005/input_data/elliptic_M_D10.txt
+realea/problem/cec2005/input_data/test_data_func22.txt
+realea/problem/cec2005/input_data/ackley_M_D30.txt
+realea/problem/cec2005/input_data/hybrid_func4_M_D10.txt
+realea/problem/cec2005/input_data/test_data_func25.txt
+realea/problem/cec2005/input_data/test_data_func20.txt
+realea/problem/cec2005/input_data/elliptic_M_D10.mat
+realea/problem/cec2005/input_data/griewank_M_D10.txt
+realea/problem/cec2005/input_data/test_data_func21.txt
+realea/problem/cec2005/input_data/test_data_func19.txt
+realea/problem/cec2005/input_data/griewank_func_data.mat
+realea/problem/cec2005/input_data/ackley_func_data.txt
+realea/problem/cec2005/input_data/griewank_M_D2.mat
+realea/problem/cec2005/input_data/hybrid_func3_data.txt
+realea/problem/cec2005/input_data/weierstrass_M_D50.txt
+realea/problem/cec2005/input_data/hybrid_func2_M_D30.mat
+realea/problem/cec2005/input_data/hybrid_func1_M_D50.mat
+realea/problem/cec2005/input_data/schwefel_102_data.txt
+realea/problem/cec2005/input_data/hybrid_func2_M_D10.mat
+realea/problem/cec2005/input_data/ackley_M_D2.txt
+realea/problem/cec2005/input_data/EF8F2_func_data.txt
+realea/problem/cec2005/input_data/hybrid_func4_M_D10.mat
+realea/problem/cec2005/input_data/ackley_M_D50.txt
+realea/problem/cec2005/input_data/schwefel_213_data.txt
+realea/problem/cec2005/input_data/hybrid_func3_M_D10.mat
+realea/problem/cec2005/input_data/griewank_M_D50.mat
+realea/problem/cec2005/input_data/EF8F2_func_data.mat
+realea/problem/cec2005/input_data/rastrigin_M_D2.mat
+realea/problem/cec2005/input_data/test_data_func3.txt
+realea/problem/cec2005/input_data/hybrid_func1_M_D10.txt
+realea/problem/cec2005/input_data/griewank_func_data.txt
+realea/problem/cec2005/input_data/schwefel_213_data.mat
+realea/problem/cec2005/input_data/weierstrass_M_D50.mat
+realea/problem/cec2005/input_data/hybrid_func3_HM_D50.mat
+realea/problem/cec2005/input_data/test_data_func5.txt
+realea/problem/cec2005/input_data/hybrid_func2_data.mat
+realea/problem/cec2005/input_data/weierstrass_M_D30.mat
+realea/problem/cec2005/input_data/test_data_func23.txt
+realea/problem/cec2005/input_data/hybrid_func1_M_D2.txt
+realea/problem/cec2005/input_data/rastrigin_M_D30.mat
+realea/problem/cec2005/input_data/test_data.mat
+realea/problem/cec2005/input_data/ackley_M_D50.mat
+realea/problem/cec2005/input_data/E_ScafferF6_M_D50.mat
+realea/problem/cec2005/input_data/griewank_M_D30.txt
+realea/problem/cec2005/input_data/hybrid_func2_data.txt
+realea/problem/cec2005/input_data/weierstrass_M_D30.txt
+realea/problem/cec2005/input_data/hybrid_func2_M_D30.txt
+realea/problem/cec2005/input_data/Files List and some explanation.txt
+realea/problem/cec2005/input_data/hybrid_func3_HM_D2.mat
+realea/problem/cec2005/input_data/E_ScafferF6_M_D2.mat
+realea/problem/cec2005/input_data/E_ScafferF6_M_D10.txt
+realea/problem/cec2005/input_data/E_ScafferF6_M_D30.txt
+realea/problem/cec2005/input_data/hybrid_func1_M_D30.mat
+realea/problem/cec2005/input_data/rosenbrock_func_data.mat
+realea/problem/cec2005/input_data/test_data_func9.txt
+realea/problem/cec2005/input_data/test_data_func4.txt
+realea/problem/cec2005/input_data/E_ScafferF6_func_data.mat
+realea/problem/cec2005/input_data/Files List.txt
+realea/problem/cec2005/input_data/ackley_M_D10.mat
+realea/problem/cec2005/input_data/fbias_data.mat
+realea/problem/cec2005/input_data/test_data_func6.txt
+realea/problem/cec2005/input_data/test_data_func18.txt
+realea/problem/cec2005/input_data/test_data_func15.txt
+realea/problem/cec2005/input_data/test_data_func10.txt
+realea/problem/cec2005/input_data/elliptic_M_D2.mat
+realea/problem/cec2005/input_data/E_ScafferF6_M_D50.txt
+realea/problem/cec2005/input_data/hybrid_func4_M_D30.mat
+realea/problem/cec2005/input_data/test_data_func1.txt
+realea/problem/cec2005/input_data/hybrid_func3_data.mat
+realea/problem/cec2005/input_data/hybrid_func1_M_D10.mat
+realea/problem/cec2005/input_data/hybrid_func2_M_D2.mat
+realea/problem/cec2005/input_data/ackley_func_data.mat
+realea/problem/cec2005/input_data/ackley_M_D10.txt
+realea/problem/cec2005/input_data/hybrid_func3_HM_D2.txt
+realea/problem/cec2005/input_data/hybrid_func4_M_D50.txt
+realea/problem/cec2005/input_data/rosenbrock_func_data.txt
+realea/problem/cec2005/input_data/hybrid_func1_M_D30.txt
+realea/problem/cec2005/input_data/test_data_func11.txt
+realea/problem/cec2005/input_data/hybrid_func3_M_D50.mat
+realea/problem/cec2005/input_data/hybrid_func3_M_D2.txt
+realea/problem/cec2005/input_data/griewank_M_D30.mat
+realea/problem/cec2005/input_data/rastrigin_M_D10.mat
+realea/problem/cec2005/input_data/weierstrass_M_D2.txt
+realea/problem/cec2005/input_data/sphere_func_data.txt
+realea/problem/cec2005/input_data/hybrid_func3_HM_D30.mat
+realea/problem/cec2005/input_data/fbias_data.txt
+realea/problem/cec2005/input_data/weierstrass_M_D2.mat
+realea/problem/cec2005/input_data/test_data_func16.txt
+realea/problem/cec2005/input_data/rastrigin_M_D50.mat
+realea/problem/cec2005/input_data/sphere_func_data.mat
+realea/problem/cec2005/input_data/hybrid_func4_M_D50.mat
+realea/problem/cec2005/input_data/rastrigin_func_data.txt
+realea/problem/cec2005/input_data/variablescmaes.mat
+realea/problem/cec2005/input_data/weierstrass_data.txt
+realea/problem/cec2005/input_data/weierstrass_M_D10.mat
+realea/problem/cec2005/input_data/hybrid_func2_M_D50.txt
+realea/problem/cec2005/input_data/hybrid_func4_M_D2.txt
+realea/problem/cec2005/input_data/rastrigin_M_D30.txt
+realea/problem/cec2005/input_data/test_data_func24.txt
+realea/problem/cec2005/input_data/hybrid_func4_M_D2.mat
+realea/problem/cec2005/input_data/E_ScafferF6_M_D30.mat
+realea/problem/cec2005/input_data/E_ScafferF6_func_data.txt
+realea/problem/cec2005/input_data/test_data_func14.txt
+realea/problem/cec2005/input_data/test_data_func17.txt
+realea/problem/cec2005/input_data/hybrid_func1_M_D50.txt
+realea/problem/cec2005/input_data/rastrigin_func_data.mat
+realea/problem/cec2005/input_data/test_data_func8.txt
+realea/problem/cec2005/input_data/rastrigin_M_D2.txt
+realea/problem/cec2005/input_data/hybrid_func3_M_D30.mat
+realea/problem/cec2005/input_data/E_ScafferF6_M_D2.txt
+realea/problem/cec2005/input_data/hybrid_func3_M_D30.txt
+realea/problem/cec2005/input_data/hybrid_func3_HM_D10.txt
+realea/problem/cec2005/input_data/high_cond_elliptic_rot_data.mat
+realea/problem/cec2005/input_data/hybrid_func3_M_D50.txt
+realea/problem/cec2005/input_data/rastrigin_M_D10.txt
+realea/problem/cec2005/input_data/hybrid_func3_M_D2.mat
+realea/problem/cec2005/input_data/hybrid_func4_data.mat
+realea/problem/cec2005/input_data/elliptic_M_D50.mat
+realea/problem/cec2005/input_data/global_optima.mat
+realea/problem/cec2005/input_data/hybrid_func2_M_D50.mat
+realea/problem/cec2005/input_data/hybrid_func1_M_D2.mat
+realea/problem/cec2005/input_data/hybrid_func2_M_D10.txt
+realea/problem/cec2005/input_data/hybrid_func1_data.mat
+realea/problem/cec2005/input_data/hybrid_func3_M_D10.txt
+realea/problem/cec2005/input_data/test_data_func2.txt
+realea/problem/cec2005/input_data/ackley_M_D30.mat
+realea/problem/cec2005/input_data/hybrid_func3_HM_D50.txt
+realea/problem/cec2005/input_data/griewank_M_D10.mat
+realea/problem/cec2005/input_data/elliptic_M_D50.txt
+realea/problem/cec2005/input_data/global_optima.txt
+realea/problem/cec2005/input_data/test_data.txt
+realea/problem/cec2005/input_data/hybrid_func4_data.txt
+realea/problem/cec2005/input_data/griewank_M_D2.txt
+realea/problem/cec2005/input_data/schwefel_206_data.mat
+realea/problem/cec2005/input_data/E_ScafferF6_M_D10.mat
+realea/problem/cec2005/input_data/hybrid_func3_HM_D10.mat
+realea/problem/cec2005/input_data/test_data_func12.txt
+realea/problem/cec2005/input_data/rastrigin_M_D50.txt
+realea/problem/cec2005/resultCEC2005.ods
+realea/problem/cec2005/cec2005.cc
+realea/problem/cec2005/newutil.h
+realea/problem/cec2005/rand.h
+realea/problem/cec2005/problemcec2005.h
+realea/problem/cec2005/cec2005.h
+realea/problem/cec2005/functions.cc
+realea/problem/cec2005/def1.cc
+realea/problem/cec2005/problemeasy.h
+realea/problem/cec2005/def2.cc
+realea/problem/cec2005/def4.cc
+realea/problem/cec2005/test.cc
+realea/problem/cec2005/def3.cc
+realea/problem/cec2005/newutil.cc
+realea/problem/cec2005/problem13f.cc
+realea/problem/cec2005/srandom.h
+realea/problem/cec2005/problem13f.h
+realea/problem/cec2005/random.cc
+realea/problem/cec2005/problemeasy.cc
+realea/problem/cec2005/aux.cc
+realea/problem/cec2005/random.h
+realea/problem/cec2005/CMakeLists.txt
+realea/problem/cec2005/srandom.cc
+realea/problem/problemcec2005.h
+realea/problem/functions.cc
+realea/problem/problemtest.cc
+realea/problem/problemisda.cc
+realea/problem/problemcec2008f6.cc
+realea/problem/problemeasy.h
+realea/problem/funsoft.cc
+realea/problem/newutil.cc
+realea/problem/funsoft.h
+realea/problem/funcec08.h
+realea/problem/problemcec2008.cc
+realea/problem/F7-F11.cpp
+realea/problem/problem13f.cc
+realea/problem/problem13f.h
+realea/problem/problemisda.h
+realea/problem/bbob2009/
+realea/problem/bbob2009/benchmarkshelper.c
+realea/problem/bbob2009/benchmarksdeclare.c
+realea/problem/bbob2009/dirOK-linux.c
+realea/problem/bbob2009/benchmarksnoisy.c
+realea/problem/bbob2009/benchmarks.h
+realea/problem/bbob2009/fgeneric.c
+realea/problem/bbob2009/dirOK.c
+realea/problem/bbob2009/benchmarksdeclare.h
+realea/problem/bbob2009/benchmarksnoisy.h
+realea/problem/bbob2009/benchmarks.c
+realea/problem/bbob2009/benchmarkshelper.h
+realea/problem/bbob2009/CMakeLists.txt
+realea/problem/bbob2009/bbobStructures.h
+realea/problem/problembbob2009.h
+realea/problem/problemeasy.cc
+realea/problem/benchmark.h
+realea/problem/problemsoft.cc
+realea/problem/CMakeLists.txt
+realea/problem/data.h
+realea/problem/funcec08.cc
+realea/problem/F7-F11.h
+realea/common/
+realea/common/config.h
+realea/common/problem.h
+realea/common/ma2lsi.cc
+realea/common/problemtablefactory.h
+realea/common/running.cc
+realea/common/populationreal.h
+realea/common/ea.h
+realea/common/icross.h
+realea/common/cross.h
+realea/common/main_test.cc
+realea/common/ma2lsia.cc
+realea/common/localsearch.cc
+realea/common/mutation.cc
+realea/common/ConfigFile.h
+realea/common/cross.cc
+realea/common/statistics.cc
+realea/common/ConfigFile.cc
+realea/common/restart.h
+realea/common/ma2lsi.h
+realea/common/signal.cc
+realea/common/problemtablefactory.cc
+realea/common/populationreal.cc
+realea/common/statistics.h
+realea/common/individual.cc
+realea/common/popobserver.h
+realea/common/iea.cc
+realea/common/iea.h
+realea/common/selectls.h
+realea/common/config.cc
+realea/common/orandom.h
+realea/common/localsearch.h
+realea/common/running.h
+realea/common/domain.h
+realea/common/individual.h
+realea/common/signal.h
+realea/common/ilocalsearch.h
+realea/common/restart.cc
+realea/common/mutation.h
+realea/common/srandom.h
+realea/common/ma2lsia.h
+realea/common/initind.h
+realea/common/random.cc
+realea/common/real.h
+realea/common/initind.cc
+realea/common/define.h
+realea/common/distance.h
+realea/common/problem.cc
+realea/common/random.h
+realea/common/problemfactory.h
+realea/common/imutation.h
+realea/common/distance.cc
+realea/common/CMakeLists.txt
+realea/common/ea.cc
+realea/common/srandom.cc
+realea/common/domain.cc
+realea/common/orandom.cc
+realea/limpia.sh
+realea/README.txt
+realea/CMakeLists.txt
+realea/newmat/
+realea/newmat/nl_ex.txt
+realea/newmat/nm_ex2.cpp
+realea/newmat/garch.txt
+realea/newmat/newmatrm.h
+realea/newmat/test_exc.txt
+realea/newmat/newmat9.cpp
+realea/newmat/.hgignore
+realea/newmat/nm_misc.cpp
+realea/newmat/cholesky.cpp
+realea/newmat/include.h
+realea/newmat/_newmat.dox
+realea/newmat/rbd.css
+realea/newmat/bandmat.cpp
+realea/newmat/newmat3.cpp
+realea/newmat/controlw.h
+realea/newmat/newmatap.h
+realea/newmat/newmat8.cpp
+realea/newmat/_rbd_com.dox
+realea/newmat/myexcept.cpp
+realea/newmat/nm_ex1.txt
+realea/newmat/hholder.cpp
+realea/newmat/newmat5.cpp
+realea/newmat/nm_ex2.txt
+realea/newmat/precisio.h
+realea/newmat/nl_ex.cpp
+realea/newmat/submat.cpp
+realea/newmat/sl_ex.cpp
+realea/newmat/sl_ex.txt
+realea/newmat/garch.cpp
+realea/newmat/myexcept.h
+realea/newmat/newfft.cpp
+realea/newmat/example.txt
+realea/newmat/newmat.h
+realea/newmat/sort.cpp
+realea/newmat/example.cpp
+realea/newmat/newmatex.cpp
+realea/newmat/jacobi.cpp
+realea/newmat/nm11.htm
+realea/newmat/newmat.lfl
+realea/newmat/newmat2.cpp
+realea/newmat/newmat4.cpp
+realea/newmat/newmat1.cpp
+realea/newmat/readme.txt
+realea/newmat/fft.cpp
+realea/newmat/evalue.cpp
+realea/newmat/newmatnl.h
+realea/newmat/svd.cpp
+realea/newmat/newmatnl.cpp
+realea/newmat/progress.make
+realea/newmat/solution.cpp
+realea/newmat/test_exc.cpp
+realea/newmat/solution.h
+realea/newmat/newmat7.cpp
+realea/newmat/newmatrm.cpp
+realea/newmat/newmatrc.h
+realea/newmat/nm_ex1.cpp
+realea/newmat/newmatio.h
+realea/newmat/newmat6.cpp
+realea/newmat/CMakeLists.txt
+sh-3.2$ ls    
+librealea.tgz  macmachains.tgz  realea
+sh-3.2$ cd realea
+sh-3.2$ ls
+CMakeLists.txt	README.txt  common  limpia.sh  newmat  problem
+sh-3.2$ cmake .
+-- The CXX compiler identification is GNU
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Could NOT find Doxygen  (missing:  DOXYGEN_EXECUTABLE)
+-- The C compiler identification is GNU
+-- Check for working C compiler: /usr/bin/gcc
+-- Check for working C compiler: /usr/bin/gcc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/user/cma/realea
+sh-3.2$ ls
+CMakeCache.txt	CMakeLists.txt	README.txt	     common	newmat
+CMakeFiles	Makefile	cmake_install.cmake  limpia.sh	problem
+sh-3.2$ make install
+Scanning dependencies of target realea
+[  1%] Building CXX object common/CMakeFiles/realea.dir/signal.o
+[  2%] Building CXX object common/CMakeFiles/realea.dir/running.o
+/home/user/cma/realea/common/running.cc: In member function 'virtual bool realea::Running::isFinish()':
+/home/user/cma/realea/common/running.cc:106: warning: comparison between signed and unsigned integer expressions
+[  4%] Building CXX object common/CMakeFiles/realea.dir/random.o
+[  5%] Building CXX object common/CMakeFiles/realea.dir/srandom.o
+[  7%] Building CXX object common/CMakeFiles/realea.dir/orandom.o
+[  8%] Building CXX object common/CMakeFiles/realea.dir/domain.o
+[ 10%] Building CXX object common/CMakeFiles/realea.dir/config.o
+[ 11%] Building CXX object common/CMakeFiles/realea.dir/ConfigFile.o
+[ 13%] Building CXX object common/CMakeFiles/realea.dir/problem.o
+[ 14%] Building CXX object common/CMakeFiles/realea.dir/problemtablefactory.o
+[ 16%] Building CXX object common/CMakeFiles/realea.dir/initind.o
+/home/user/cma/realea/common/initind.cc:14: warning: unused parameter 'domain'
+/home/user/cma/realea/common/initind.cc:14: warning: unused parameter 'count'
+/home/user/cma/realea/common/initind.cc:17: warning: unused parameter 'domain'
+/home/user/cma/realea/common/initind.cc:17: warning: unused parameter 'sol'
+/home/user/cma/realea/common/initind.cc:17: warning: unused parameter 'count'
+/home/user/cma/realea/common/initind.cc: In member function 'virtual void realea::internal::UniformInitInd::resetBest(realea::DomainReal*, const realea::tChromosomeReal&, unsigned int)':
+/home/user/cma/realea/common/initind.cc:80: warning: unused variable 'ndim'
+/home/user/cma/realea/common/initind.cc: In member function 'virtual void realea::internal::UniformInitInd::createInd(realea::DomainReal*, realea::tChromosomeReal&)':
+/home/user/cma/realea/common/initind.cc:89: warning: unused variable 'ndim'
+[ 17%] Building CXX object common/CMakeFiles/realea.dir/populationreal.o
+/home/user/cma/realea/common/populationreal.h: In constructor 'realea::PopulationReal::PopulationReal(Random*, unsigned int, unsigned int)':
+/home/user/cma/realea/common/populationreal.h:230: warning: 'realea::PopulationReal::m_random' will be initialized after
+/home/user/cma/realea/common/populationreal.h:216: warning:   'bool realea::PopulationReal::m_knownbest'
+/home/user/cma/realea/common/populationreal.cc:37: warning:   when initialized here
+/home/user/cma/realea/common/populationreal.cc: In member function 'virtual void realea::PopulationReal::reset(realea::DomainReal*, int)':
+/home/user/cma/realea/common/populationreal.cc:78: warning: comparison between signed and unsigned integer expressions
+/home/user/cma/realea/common/populationreal.cc:98: warning: comparison between signed and unsigned integer expressions
+[ 19%] Building CXX object common/CMakeFiles/realea.dir/individual.o
+[ 20%] Building CXX object common/CMakeFiles/realea.dir/cross.o
+/home/user/cma/realea/common/cross.cc:140: warning: unused parameter 'fit_mom'
+/home/user/cma/realea/common/cross.cc:140: warning: unused parameter 'fit_dad'
+[ 22%] Building CXX object common/CMakeFiles/realea.dir/statistics.o
+[ 23%] Building CXX object common/CMakeFiles/realea.dir/mutation.o
+[ 25%] Building CXX object common/CMakeFiles/realea.dir/restart.o
+[ 26%] Building CXX object common/CMakeFiles/realea.dir/distance.o
+/home/user/cma/realea/common/distance.cc: In function 'unsigned int getNeigh(const realea::tChromosomeReal&, realea::PopulationReal*, double)':
+/home/user/cma/realea/common/distance.cc:134: warning: comparison between signed and unsigned integer expressions
+/home/user/cma/realea/common/distance.cc:129: warning: unused variable 'i'
+/home/user/cma/realea/common/distance.cc:129: warning: 'posmin' may be used uninitialized in this function
+[ 27%] Building CXX object common/CMakeFiles/realea.dir/iea.o
+/home/user/cma/realea/common/iea.cc:115: warning: unused parameter 'aoptional'
+/home/user/cma/realea/common/iea.cc:115: warning: unused parameter 'optional_size'
+[ 29%] Building CXX object common/CMakeFiles/realea.dir/ea.o
+Linking CXX shared library librealea.so
+[ 29%] Built target realea
+Scanning dependencies of target bbob2009
+[ 30%] Building C object problem/bbob2009/CMakeFiles/bbob2009.dir/benchmarks.o
+[ 32%] Building C object problem/bbob2009/CMakeFiles/bbob2009.dir/benchmarksdeclare.o
+[ 33%] Building C object problem/bbob2009/CMakeFiles/bbob2009.dir/benchmarkshelper.o
+[ 35%] Building C object problem/bbob2009/CMakeFiles/bbob2009.dir/benchmarksnoisy.o
+[ 36%] Building C object problem/bbob2009/CMakeFiles/bbob2009.dir/dirOK-linux.o
+[ 38%] Building C object problem/bbob2009/CMakeFiles/bbob2009.dir/fgeneric.o
+Linking C shared library libbbob2009.so
+/usr/bin/gcc  -fPIC -O3 -DNDEBUG  -shared -Wl,-soname,libbbob2009.so -o libbbob2009.so CMakeFiles/bbob2009.dir/benchmarks.o CMakeFiles/bbob2009.dir/benchmarksdeclare.o CMakeFiles/bbob2009.dir/benchmarkshelper.o CMakeFiles/bbob2009.dir/benchmarksnoisy.o CMakeFiles/bbob2009.dir/dirOK-linux.o CMakeFiles/bbob2009.dir/fgeneric.o -L/home/user/cma/realea/lib 
+[ 38%] Built target bbob2009
+Scanning dependencies of target realpbbob2009
+[ 39%] Building CXX object problem/CMakeFiles/realpbbob2009.dir/problembbob2009.o
+Linking CXX shared library librealpbbob2009.so
+/usr/bin/c++  -fPIC -W -Wall -O3 -DNDEBUG  -shared -Wl,-soname,librealpbbob2009.so -o librealpbbob2009.so CMakeFiles/realpbbob2009.dir/problembbob2009.o -L/home/user/cma/realea/lib bbob2009/libbbob2009.so -lm -Wl,-rpath,/home/user/cma/realea/lib:/home/user/cma/realea/problem/bbob2009 
+[ 39%] Built target realpbbob2009
+Scanning dependencies of target cec2005
+[ 41%] Building CXX object problem/lib/CMakeFiles/cec2005.dir/cec2005.o
+/home/user/cma/realea/problem/cec2005/cec2005.cc:143: warning: unused parameter 'ndim'
+In file included from /home/user/cma/realea/problem/cec2005/cec2005.cc:35:
+/home/user/cma/realea/problem/cec2005/def3.cc: In function 'void initialize_f14()':
+/home/user/cma/realea/problem/cec2005/def3.cc:564: warning: 'fpt' may be used uninitialized in this function
+/home/user/cma/realea/problem/cec2005/def3.cc: In function 'void initialize_f11()':
+/home/user/cma/realea/problem/cec2005/def3.cc:419: warning: 'fpt' may be used uninitialized in this function
+/home/user/cma/realea/problem/cec2005/def3.cc: In function 'void initialize_f10()':
+/home/user/cma/realea/problem/cec2005/def3.cc:378: warning: 'fpt' may be used uninitialized in this function
+/home/user/cma/realea/problem/cec2005/def3.cc: In function 'void initialize_f8()':
+/home/user/cma/realea/problem/cec2005/def3.cc:309: warning: 'fpt' may be used uninitialized in this function
+/home/user/cma/realea/problem/cec2005/def3.cc: In function 'void initialize_f7()':
+/home/user/cma/realea/problem/cec2005/def3.cc:267: warning: 'fpt' may be used uninitialized in this function
+/home/user/cma/realea/problem/cec2005/def3.cc: In function 'void initialize_f3()':
+/home/user/cma/realea/problem/cec2005/def3.cc:110: warning: 'fpt' may be used uninitialized in this function
+/home/user/cma/realea/problem/cec2005/cec2005.cc: At global scope:
+/home/user/cma/realea/problem/cec2005/cec2005.cc:121: warning: 'cec2005FunSize' defined but not used
+Linking CXX shared library libcec2005.so
+/usr/bin/c++  -fPIC -W -Wall -O3 -DNDEBUG  -shared -Wl,-soname,libcec2005.so -o libcec2005.so CMakeFiles/cec2005.dir/cec2005.o -L/home/user/cma/realea/lib 
+[ 41%] Built target cec2005
+Scanning dependencies of target realpcec2005
+[ 42%] Building CXX object problem/CMakeFiles/realpcec2005.dir/functions.o
+/home/user/cma/realea/problem/functions.cc:80: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:98: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:105: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:116: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:130: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:142: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:152: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:190: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:232: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:261: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:266: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:307: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:337: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:384: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:388: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:392: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:471: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:554: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:1071: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:1354: warning: unused parameter 'nvar'
+[ 44%] Building CXX object problem/CMakeFiles/realpcec2005.dir/newutil.o
+[ 45%] Building CXX object problem/CMakeFiles/realpcec2005.dir/problemeasy.o
+/home/user/cma/realea/problem/problemeasy.cc:32: warning: unused parameter 'fun'
+[ 47%] Building CXX object problem/CMakeFiles/realpcec2005.dir/problem13f.o
+[ 48%] Building CXX object problem/CMakeFiles/realpcec2005.dir/problemcec2005.o
+Linking CXX shared library librealpcec2005.so
+/usr/bin/c++  -fPIC -W -Wall -O3 -DNDEBUG  -shared -Wl,-soname,librealpcec2005.so -o librealpcec2005.so CMakeFiles/realpcec2005.dir/functions.o CMakeFiles/realpcec2005.dir/newutil.o CMakeFiles/realpcec2005.dir/problemeasy.o CMakeFiles/realpcec2005.dir/problem13f.o CMakeFiles/realpcec2005.dir/problemcec2005.o -L/home/user/cma/realea/lib lib/libcec2005.so -lm -Wl,-rpath,/home/user/cma/realea/lib:/home/user/cma/realea/problem/lib 
+[ 48%] Built target realpcec2005
+Scanning dependencies of target realpeasy
+[ 50%] Building CXX object problem/CMakeFiles/realpeasy.dir/functions.o
+/home/user/cma/realea/problem/functions.cc:80: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:98: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:105: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:116: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:130: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:142: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:152: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:190: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:232: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:261: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:266: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:307: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:337: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:384: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:388: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:392: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:471: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:554: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:1071: warning: unused parameter 'n'
+/home/user/cma/realea/problem/functions.cc:1354: warning: unused parameter 'nvar'
+[ 51%] Building CXX object problem/CMakeFiles/realpeasy.dir/newutil.o
+[ 52%] Building CXX object problem/CMakeFiles/realpeasy.dir/problemeasy.o
+/home/user/cma/realea/problem/problemeasy.cc:32: warning: unused parameter 'fun'
+[ 54%] Building CXX object problem/CMakeFiles/realpeasy.dir/problem13f.o
+Linking CXX shared library librealpeasy.so
+/usr/bin/c++  -fPIC -W -Wall -O3 -DNDEBUG  -shared -Wl,-soname,librealpeasy.so -o librealpeasy.so CMakeFiles/realpeasy.dir/functions.o CMakeFiles/realpeasy.dir/newutil.o CMakeFiles/realpeasy.dir/problemeasy.o CMakeFiles/realpeasy.dir/problem13f.o -L/home/user/cma/realea/lib -lm -Wl,-rpath,/home/user/cma/realea/lib 
+[ 54%] Built target realpeasy
+Scanning dependencies of target realpisda
+[ 55%] Building CXX object problem/CMakeFiles/realpisda.dir/problemisda.o
+/home/user/cma/realea/problem/problemisda.cc: In member function 'virtual realea::ProblemPtr realea::ProblemISDA::get(unsigned int)':
+/home/user/cma/realea/problem/problemisda.cc:79: warning: 'min' may be used uninitialized in this function
+/home/user/cma/realea/problem/problemisda.cc:79: warning: 'max' may be used uninitialized in this function
+/home/user/cma/realea/problem/problemisda.cc:79: warning: 'optime' may be used uninitialized in this function
+[ 57%] Building CXX object problem/CMakeFiles/realpisda.dir/F7-F11.o
+[ 58%] Building CXX object problem/CMakeFiles/realpisda.dir/benchmark.o
+Linking CXX shared library librealpisda.so
+/usr/bin/c++  -fPIC -W -Wall -O3 -DNDEBUG  -shared -Wl,-soname,librealpisda.so -o librealpisda.so CMakeFiles/realpisda.dir/problemisda.o CMakeFiles/realpisda.dir/F7-F11.o CMakeFiles/realpisda.dir/benchmark.o -L/home/user/cma/realea/lib -lm -Wl,-rpath,/home/user/cma/realea/lib 
+[ 58%] Built target realpisda
+Scanning dependencies of target realpsoft
+[ 60%] Building CXX object problem/CMakeFiles/realpsoft.dir/problemsoft.o
+[ 61%] Building CXX object problem/CMakeFiles/realpsoft.dir/funsoft.o
+Linking CXX shared library librealpsoft.so
+/usr/bin/c++  -fPIC -W -Wall -O3 -DNDEBUG  -shared -Wl,-soname,librealpsoft.so -o librealpsoft.so CMakeFiles/realpsoft.dir/problemsoft.o CMakeFiles/realpsoft.dir/funsoft.o -L/home/user/cma/realea/lib -lm -Wl,-rpath,/home/user/cma/realea/lib 
+[ 61%] Built target realpsoft
+Scanning dependencies of target test
+[ 63%] Building CXX object problem/lib/CMakeFiles/test.dir/test.o
+[ 64%] Building CXX object problem/lib/CMakeFiles/test.dir/random.o
+[ 66%] Building CXX object problem/lib/CMakeFiles/test.dir/srandom.o
+Linking CXX executable test
+/usr/bin/c++   -W -Wall -O3 -DNDEBUG   CMakeFiles/test.dir/test.o CMakeFiles/test.dir/random.o CMakeFiles/test.dir/srandom.o  -o test -rdynamic -L/home/user/cma/realea/lib libcec2005.so -Wl,-rpath,/home/user/cma/realea/lib:/home/user/cma/realea/problem/lib 
+[ 66%] Built target test
+Scanning dependencies of target newmat
+[ 67%] Building CXX object newmat/CMakeFiles/newmat.dir/newmat1.o
+[ 69%] Building CXX object newmat/CMakeFiles/newmat.dir/newmat2.o
+[ 70%] Building CXX object newmat/CMakeFiles/newmat.dir/newmat3.o
+[ 72%] Building CXX object newmat/CMakeFiles/newmat.dir/newmat4.o
+[ 73%] Building CXX object newmat/CMakeFiles/newmat.dir/newmat5.o
+[ 75%] Building CXX object newmat/CMakeFiles/newmat.dir/newmat6.o
+[ 76%] Building CXX object newmat/CMakeFiles/newmat.dir/newmat7.o
+[ 77%] Building CXX object newmat/CMakeFiles/newmat.dir/newmat8.o
+[ 79%] Building CXX object newmat/CMakeFiles/newmat.dir/newmatex.o
+[ 80%] Building CXX object newmat/CMakeFiles/newmat.dir/bandmat.o
+[ 82%] Building CXX object newmat/CMakeFiles/newmat.dir/submat.o
+[ 83%] Building CXX object newmat/CMakeFiles/newmat.dir/myexcept.o
+[ 85%] Building CXX object newmat/CMakeFiles/newmat.dir/cholesky.o
+[ 86%] Building CXX object newmat/CMakeFiles/newmat.dir/evalue.o
+[ 88%] Building CXX object newmat/CMakeFiles/newmat.dir/fft.o
+[ 89%] Building CXX object newmat/CMakeFiles/newmat.dir/hholder.o
+[ 91%] Building CXX object newmat/CMakeFiles/newmat.dir/jacobi.o
+[ 92%] Building CXX object newmat/CMakeFiles/newmat.dir/newfft.o
+[ 94%] Building CXX object newmat/CMakeFiles/newmat.dir/sort.o
+[ 95%] Building CXX object newmat/CMakeFiles/newmat.dir/svd.o
+[ 97%] Building CXX object newmat/CMakeFiles/newmat.dir/nm_misc.o
+[ 98%] Building CXX object newmat/CMakeFiles/newmat.dir/newmatrm.o
+[100%] Building CXX object newmat/CMakeFiles/newmat.dir/newmat9.o
+Linking CXX shared library libnewmat.so
+[100%] Built target newmat
+Install the project...
+-- Install configuration: "Release"
+-- Installing: /home/user/cma/realea/lib/librealea.so
+-- Installing: /home/user/cma/realea/lib/libnewmat.so
+-- Installing: /home/user/cma/realea/lib/librealpbbob2009.so
+-- Installing: /home/user/cma/realea/lib/librealpcec2005.so
+-- Installing: /home/user/cma/realea/lib/librealpeasy.so
+-- Installing: /home/user/cma/realea/lib/librealpisda.so
+-- Installing: /home/user/cma/realea/lib/librealpsoft.so
+sh-3.2$ ls
+CMakeCache.txt	Makefile	     common		   limpia.sh
+CMakeFiles	README.txt	     install_manifest.txt  newmat
+CMakeLists.txt	cmake_install.cmake  lib		   problem
+sh-3.2$ cd ..
+sh-3.2$ ls
+librealea.tgz  macmachains.tgz  realea
+sh-3.2$ 

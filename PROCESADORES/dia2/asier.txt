@@ -1,0 +1,42 @@
+//Compilar flex lenguaje.lex
+//	   gcc -o lenguaje lenguaje.c -lfl
+//Bison    bison -d -ly analizador.y
+
+main(int argc, char *argv[] )
+{
+	extern FILE *yyin;
+	++argv; --argc;
+
+	yyin = fopen( argv[0], "r" );
+  	if (yyin == NULL) {
+   	  fprintf(stderr, "Cannot open %s file\n", argv[0]);
+  	  return 1;
+  	}
+	yyparse();
+}
+
+
+//para el lex
+entero                  [[:digit:]]+
+comentPRE		\{PRE([^\}]|\\\})*\}
+comentPOS		\{POST([^\}]|\\\})*\}
+coment			\{([^\}]|\\\})*\}
+cadena_caracteres	\"([^\"]|\\\")*\"
+oprel			"=="|"<"|">"|"<="|">="|"<>"
+
+
+
+en lex recibir y pasar a bison
+":"	{ return tok_dp; }
+
+
+bison definido y usar en reglas gramaticales
+%token tok_dp
+
+:::::::::
+lista_campos: 
+	| tok_id tok_dp tipo tok_puntocoma lista_campos
+;
+variable: tok_id tok_coma variable
+	| tok_id tok_dp tipoidvar
+:::::::::

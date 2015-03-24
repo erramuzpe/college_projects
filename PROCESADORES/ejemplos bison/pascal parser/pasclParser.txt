@@ -1,0 +1,296 @@
+/*
+ * Declare tokens
+ */
+%start program
+%token KEYWORD
+%token <id> IDENT
+%token <intval> UNSIGNED
+%token FLOAT 
+%token ADDOP  
+%token MINUS   
+%token MULOP   
+%token DIVIDE  
+%token EQUALS  
+%token RELOP   
+%token LFTPAR  
+%token RGTPAR  
+%token STRCONST 
+%token EXPONENT 
+%token ASSIGN  
+%token COMMA   
+%token COLON   
+%token SEMICOLON 
+%token PERIOD  
+%token NESTED  
+%token PROGRAM
+%token VAR    
+%token PROCED
+%token BEGIN1
+%token END    
+%token <lbls> WHILE  
+%token DO     
+%token REPEAT 
+%token UNTIL   
+%token <lbls> IF      
+%token THEN    
+%token ELSE    
+%token DIV
+
+%expect 1
+%{
+
+#include <stdio.h> 		/* For error messages and I/O */
+#include <stdlib.h>		/* For malloc in symbol table */
+#include <string.h>		/* For strcmp in symbol table */
+#include "symtab.h"		/* The Symbol Table Header File */
+#include "stackMachine.h"	/* The Stack Machine Header File */
+#include "codeGen.h"		/* The Code Generator Header File */
+
+#define YYDEBUG 1 	/* For debugging */
+
+void free(void *ptr);
+void yyerror ( const char *msg );
+int yylex( void );
+int errors;			/* Error count-incremented in CodeGen */
+
+struck lbs
+{
+	int for_goto;
+	int for_jump;
+};
+
+/* Allocate space to hold the labels */
+struct lbs *newlblrec()
+{
+	return (struct lbs*) malloc(sizeof(struct lbs));
+}
+
+install( char *sym_name )
+{
+	symrec *s;
+	
+	s = lookup( sym_name );
+	if(s == 0)
+		s = insert(sym_name);
+	else
+	{
+		errors++;
+		printf( "%s is already defined\n", sym_name );
+	}
+}
+
+context_check( enum code_ops operation, char *sym_name )
+{
+	symrec *identifier;
+	
+	identifier = lookup( sym_name );
+
+	if( identifier == 0 )
+	{
+		errors++;
+		printf( "%s", sym_name );
+		printf( "%s\n", " is an undeclared identifier." );
+	}
+	else
+		gen_code( operation, identifer->offset );
+}
+
+extern int yylineno;
+
+%}
+
+%union semanticRecord	/* The Semantic Records */
+{
+	int intval;		/* For Integer Values */
+	char *id;		/* For Identifiers */
+	struct lbs *lbls	/* For label back-patching */
+}
+/*
+
+	MicroPascal Grammar:
+
+	program   ->  program_header block "."  
+	program_header   ->  "program" identifier ";"  
+	block   ->   declarations compound_statement  
+	declarations   ->   declarations declaration | e  
+	declaration   ->   "var" variable_decls | procedure_decl  
+	variable_decls   ->   variable_decls variable_decl |  
+			      variable_decl  
+	variable_decl   ->   identifier_list ":" identifier ";"  
+	procedure_decl   ->   procedure_header block ";"  
+	procedure_header   ->   "procedure" identifier  
+				"(" parameter_list ")" ";" |  
+				"procedure" identifier ";"  
+	parameter_list   ->   parameter_group |  
+				parameter_list ";" parameter_group  
+	parameter_group   ->   "var" identifier_list ":" identifier |  
+				identifier_list ":" identifier  
+	compound_statement   ->  "begin" statement_list "end"  
+	statement_list   ->  statement | statement_list ";"  
+				statement  
+	statement   ->  e // empty statement // |  
+			identifier |  
+			identifier "(" expression_list ")" |  
+			identifier ":=" expression |  
+			"while" expression "do" statement |  
+			"repeat" statement_list "until" expression |  
+			"if" expression "then" statement |  
+			"if" expression "then" statement  
+			"else" statement |  
+			compound_statement  
+	expression_list   ->  expression | expression_list "," expression  
+	expression   ->  simple_expression |  
+			 simple_expression rel_op simple_expression  
+	simple_expression   ->  term | add_op term |  
+				simple_expression add_op term  
+	term   ->  factor | term mul_op factor  
+	factor   ->  identifier |  
+		     constant |  
+		     "(" expression ")"  
+	constant   ->  string_constant | number  
+	number   ->  unsigned_integer |  
+			floating_point  
+	identifier_list   ->  identifier |  
+			      identifier_list "," identifier 
+
+*/
+
+%%
+program:	program_header 
+		block 
+		PERIOD 		{ gen_code( HALT, 0 ); YYACCEPT; }
+		;
+
+program_header:	PROGRAM IDENT SEMICOLON { install( $2 ); }
+		;
+
+block:		declarations compound_stat
+		;
+
+declarations:	declarations declaration
+		| 
+		/* empty statement */
+		;
+
+declaration:	VAR variable_decls
+		|
+		procedure_decl
+		;
+
+variable_decls:	variable_decls variable_decl
+		|
+		variable_decl
+		;
+
+variable_decl:	identifier_lst COLON IDENT SEMICOLON 	{ context_check( PUSHA, $3 ); }
+		;
+
+procedure_decl:	procedure_head block SEMICOLON
+		;
+
+procedure_head:	PROCED IDENT LFTPAR parameter_list RGTPAR SEMICOLON { install( $1 ); }
+		|
+		PROCED IDENT SEMICOLON { install( $2 ); }
+		;
+
+parameter_list:	parameter_grp
+		|
+		parameter_list SEMICOLON parameter_grp
+		;
+
+parameter_grp:	VAR identifier_lst COLON IDENT { context_check( $4 ); }
+		|
+		identifier_lst COLON IDENT { context_check( $3 ); }
+		;
+
+compound_stat:	BEGIN1 statement_list END
+		;
+
+statement_list:	statement
+		|
+		statement_list SEMICOLON statement
+		;
+
+statement:	/* empty statement */
+		|
+		IDENT { context_check( $1 ); }
+		|
+		IDENT LFTPAR expression_lst RGTPAR { context_check( $1 ); }
+		|
+		IDENT ASSIGN expression { context_check( $1 ); }
+		|
+		WHILE expression DO statement
+		|
+		REPEAT statement_list UNTIL expression
+		|
+		IF expression THEN statement
+		|
+		IF expression THEN statement ELSE statement
+		|
+		compound_stat
+		;
+
+expression_lst:	expression
+		|
+		expression_lst COMMA expression
+		;
+
+expression:	simple_express
+		|
+		simple_express RELOP simple_express
+		;
+
+simple_express:	term
+		|
+		ADDOP term
+		|
+		simple_express ADDOP term
+		;
+
+term:		factor
+		|
+		term MULOP factor
+		;
+
+factor:		IDENT { context_check( $1 ); }
+		|
+		constant
+		|
+		LFTPAR expression RGTPAR
+		;
+
+constant:	STRCONST
+		|
+		number
+		;
+
+number:		UNSIGNED
+		|
+		FLOAT
+		;
+
+identifier_lst:	IDENT { context_check( $1 ); }
+		|
+		identifier_lst COMMA IDENT { context_check( $3 ); }
+		;
+
+
+%%
+#ifdef YYDEBUG
+extern int yydebug;
+#endif
+extern int yylineno;
+
+main(int argc, char *argv[] )
+{
+	extern FILE *yyin;
+	++argv; --argc;
+
+	yyin = fopen( argv[0], "r" );
+//	yydebug = 1;
+	yyparse();
+}
+void yyerror( const char *msg )
+{
+	printf("Line %d: %s\n", yylineno, msg);
+}

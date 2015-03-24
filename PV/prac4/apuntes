@@ -1,0 +1,28 @@
+La idea es crear un codificador de voz.
+
+Cojemos voz, segmentamos en tramas y análisis LPC (como siempre). con los ak.
+
+Codificador y descodificar. Vamos a construir un diccionario usando el algoritmo
+de Lloyd. 
+A partir de la s(n) obtenemos ak, la ganancia G y una excitación unitaria u(n).
+Entonces, los ak van desde 1 a 10.
+
+la u(n) se puede descomponer en periodo de pitch y si es sonoro o sordo.
+Aunque esto se va a dejar de lado y nos vamos a centrar en los ak. 
+
+Lo primero que vamos a hacer es linealizar los ak. Los vamos a convertir a coeficientes de reflexión con la fórmula de la práctica. 
+Vamos a tener unos coeficientes ki con i = 1..10.
+
+Para k1 vamos a utilizar 7 bits(128 indices), para k2 6 bits(64 indices), k3 5 bits (32 indices) y desde k4 a k10 4 bits (16 indices).
+Para G (ganancia) vamos a utilizar 8 bits (256 indices).
+
+La idea es a coger de nuestros 5 ficheros, 4 de ellos. Y hacer los diccionarios (conjunto de entrenamiento).
+Diseñar una función que haga el algoritmo de lloyd pasandole los bits que queremos y la señal.
+Estos serán nuestros dicc. de cuantización. 
+
+Con el 5º fichero, hacemos una fase de analisis, pasamos por los cuantizadores (diccionario) y acabamos sintesis. 
+Tenemos que calcular la SNR (10log10 * (energia original / cuantizada (Eqn))) , donde qn es sn-s'n.
+
+s(n) -> Analisis-> ak y G -> Quantizacion -> ak' y G' cuantizados -> Sintesis -> s'(n) cuantizada
+
+Atención, de la etapa de Análisis sale u(n) y va directo a Síntesis (sin pasar por la cuantización).

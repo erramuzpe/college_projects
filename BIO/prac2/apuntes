@@ -1,0 +1,28 @@
+PRAC 2
+
+La idea es utilizar algoritmos reales, como en una investigación real. Ejecutar, comparar y evaluar si es mejor. 
+ESTE ES UN TRABAJO DE OPTIMIZACION.
+Vamos a trabajar con código hecho, muy avanzado. Si combinamos 2 partes buenas de algoritmos diferentes y justificamos, 1 punto más. Si se gana al algoritmo básico, 1 punto extra. 
+
+Hay que saber identificar las partes básicas de los diferentes algoritmos.
+
+todo está en : sci2s.ugr.es/EAMHCO
+
+Las funciones unimodales tienen un máximo local, las multimodales un máximo global 
+y varios locales.
+
+Algoritmo i (de 6): evaluamos sobre 9 funciones
+
+con cada función 20 resultados -> media
+
+Tenemos 9 valores medios de cada algoritmo. Los sumamos (ERROR ACUMULADO)
+
+Obetenemos un gráfico de 2 dimensiones.
+
+sabemos que el optimo sobre el algoritmo i es -450. obtenemos 453.7. el error es 3.7.
+si el error es inferior a 10^-8, el error es 0. esto es lo que vamos a sumar, media, sumar(con las 9 funciones) y media.
+
+avanzados: SADE(diferencial evolution), G3PCX y CHC.
+
+tenemos que fijar nuestra semilla aleatoria y pasarle la misma a todos los algoritmos.
+lo mismo para la segunda ejecuión. hasta la 20.

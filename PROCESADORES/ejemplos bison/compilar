@@ -1,0 +1,3 @@
+bison -d -v mfcalc.y
+
+cc mfcalc.tab.c -lm -o mfcalc

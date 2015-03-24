@@ -1,0 +1,7 @@
+Net:twitter librería de apoyo para hacer la búsqueda en twitter. 
+En las transparencias está casi hecho. 
+
+
+ @listanombrepropios  = $texto =~ /() /g  #entre paréntesis coger las palabras con Mayus consecutivas.
+
+Se puede ver en las transparencias de "entidades nomimales" lo que estamos viendo.

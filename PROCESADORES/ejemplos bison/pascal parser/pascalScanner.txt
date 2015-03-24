@@ -1,0 +1,171 @@
+/*
+Use the line:
+
+%option yylineno
+
+when compiling with flex
+
+*/
+
+%option yylineno
+
+%{
+
+#include "y.tab.h"
+#include <math.h>
+#include <string.h>		/* For strdup */
+#include "micropc.tab.h"	/* For token definitions and yylval */
+
+void fatal( char *, char * );
+void error( char *, char * );
+
+%}
+
+letter	[a-zA-Z]
+digit	[0-9]
+singquo \'\'
+string	\'[^'\n\r]*\'|\'[^'\n\r]*{singquo}[^'\n\r]*\'
+comment "{".*"}"|"(*".*"*)"
+ident	{letter}({letter}|{digit})*
+uint	{digit}{digit}*
+error	{uint}{ident}+
+plus	\+
+minus   \-
+exp	[eE]({plus}|{minus})?{uint}
+float	{uint}"."{uint}|{uint}"."{uint}{exp}
+times   \*
+divide  \/
+equals  \=
+assign	":="
+comma	\,
+colon	\:
+smcol	\;
+lftpar	\(
+rgtpar	\)
+lessth	\<
+grthan	\>
+lesseq	"<="
+lesgrt	"<>"
+grteq	">="
+ws      [ \n\t\r]
+period	"."
+
+%%
+
+[iI][fF]				return IF;
+[tT][hH][eE][nN]			return THEN;
+[bB][eE][gG][iI][nN]			return BEGIN1;
+[eE][nN][dD]				return END;
+[eE][lL][sS][eE]			return ELSE;
+[dD][iI][vV]				return MULOP;
+[pP][rR][oO][cC][eE][dD][uU][rR][eE]	return PROCED;
+[vV][aA][rR]				return VAR;
+[pP][rR][oO][gG][rR][aA][mM]		return PROGRAM;
+[wW][hH][iI][lL][eE]			return WHILE;
+[dD][oO]				return DO;
+[rR][eE][pP][eE][aA][tT]		return REPEAT;
+[uU][nN][tT][iI][lL]			return UNTIL;
+[fF][uU][nN][cC][tT][iI][oO][nN]        |
+function	return KEYWORD; 
+
+{ident}		{ yylval.id = (char *) strdup(yytext);
+		  return (IDENT); }
+{singquo}	printf( "SINGLE QUOTE: '");
+{string}        return STRCONST;
+{error}		{ error ( "Illegal combination (INT and IDENT): ", yytext); }
+{uint}		return UNSIGNED;
+{exp}		return EXPONENT;
+{float}		return FLOAT;
+{minus}         |
+{plus}		return ADDOP;
+{divide}       	|
+{times}		return MULOP;
+{equals}	return EQUALS;
+{lessth}	|
+{grthan}	|
+{lesseq}	|
+{lesgrt}	|
+{grteq}		return RELOP;
+{lftpar}	return LFTPAR;
+{rgtpar}	return RGTPAR;
+{assign}	return ASSIGN;
+{comma}		return COMMA;
+{colon}		return COLON;
+{smcol}		return SEMICOLON;
+{comment}	;
+{ws}		;
+{period}	return PERIOD;
+.		{ error( "Illegal input: ", yytext ); }
+
+%%
+
+int yywrap( void )
+{
+  return 1;
+}
+/*
+int main( int argc, char **argv )
+{
+  int tok;
+
+  if ( argc > 1 ) {
+
+    yyin = fopen( argv[1], "r" );
+
+    if ( yyin == NULL )
+      fatal( argv[0], "cannot open input file" );
+  }
+
+  while( tok = yylex() ) {
+    switch( tok ) {
+    case KEYWORD:
+      printf( "KEYWORD: %s\n", yytext );
+      break;
+    case IDENT:
+      printf( "INDENTIFIER: %s\n", yytext );
+      break;
+    case UNSIGNED:
+      printf( "UNSIGNED INT: %s (%d)\n", yytext, atoi(yytext) );
+      break;
+    case FLOAT:
+      printf( "FLOATING POINT: %s (%g)\n", yytext, atof(yytext) );
+      break;
+    case RELOP:
+      printf( "RELATIONAL OPERATION: %s\n", yytext );
+      break;
+    case PLUS:
+      printf( "PLUS\n");
+      break;
+    case MINUS:
+      printf( "MINUS\n");
+      break;
+    case TIMES:
+      printf( "TIMES\n");
+      break;
+    case DIVIDE:
+      printf( "DIVIDE\n");
+      break;
+    case EQUALS:
+      printf( "EQUALS\n");
+      break;
+    case LFTPAR:
+      printf( "LPAR\n");
+      break;
+    case RGTPAR:
+      printf( "RPAR\n");
+      break;
+    case STRCONST:
+      printf( "STRING CONSTANT: %s\n", yytext);
+      break;
+    case EXPONENT:
+      printf( "EXPONENT: %s\n", yytext);
+      break;
+    default:
+      printf( "Unknown token: %d\n", tok );
+      break;
+    } // switch
+  } // while
+
+return 0;
+} // main
+*/

@@ -1,0 +1,174 @@
+class mpmath.calculus.optimization.Secant(ctx, f, x0, **kwargs)¶
+
+    1d-solver generating pairs of approximative root and error.
+
+    Needs starting points x0 and x1 close to the root. x1 defaults to x0 + 0.25.
+
+    Pro:
+
+        * converges fast
+
+    Contra:
+
+        * converges slowly for multiple roots
+
+class mpmath.calculus.optimization.Newton(ctx, f, x0, **kwargs)¶
+
+    1d-solver generating pairs of approximative root and error.
+
+    Needs starting points x0 close to the root.
+
+    Pro:
+
+        * converges fast
+        * sometimes more robust than secant with bad second starting point
+
+    Contra:
+
+        * converges slowly for multiple roots
+        * needs first derivative
+        * 2 function evaluations per iteration
+
+class mpmath.calculus.optimization.MNewton(ctx, f, x0, **kwargs)¶
+
+    1d-solver generating pairs of approximative root and error.
+
+    Needs starting point x0 close to the root. Uses modified Newton’s method that converges fast regardless of the multiplicity of the root.
+
+    Pro:
+
+        * converges fast for multiple roots
+
+    Contra:
+
+        * needs first and second derivative of f
+        * 3 function evaluations per iteration
+
+class mpmath.calculus.optimization.Halley(ctx, f, x0, **kwargs)¶
+
+    1d-solver generating pairs of approximative root and error.
+
+    Needs a starting point x0 close to the root. Uses Halley’s method with cubic convergence rate.
+
+    Pro:
+
+        * converges even faster the Newton’s method
+        * useful when computing with many digits
+
+    Contra:
+
+        * needs first and second derivative of f
+        * 3 function evaluations per iteration
+        * converges slowly for multiple roots
+
+class mpmath.calculus.optimization.Muller(ctx, f, x0, **kwargs)¶
+
+    1d-solver generating pairs of approximative root and error.
+
+    Needs starting points x0, x1 and x2 close to the root. x1 defaults to x0 + 0.25; x2 to x1 + 0.25. Uses Muller’s method that converges towards complex roots.
+
+    Pro:
+
+        * converges fast (somewhat faster than secant)
+        * can find complex roots
+
+    Contra:
+
+        * converges slowly for multiple roots
+        * may have complex values for real starting points and real roots
+
+    http://en.wikipedia.org/wiki/Muller’s_method
+
+class mpmath.calculus.optimization.Bisection(ctx, f, x0, **kwargs)¶
+
+    1d-solver generating pairs of approximative root and error.
+
+    Uses bisection method to find a root of f in [a, b]. Might fail for multiple roots (needs sign change).
+
+    Pro:
+
+        * robust and reliable
+
+    Contra:
+
+        * converges slowly
+        * needs sign change
+
+class mpmath.calculus.optimization.Illinois(ctx, f, x0, **kwargs)¶
+
+    1d-solver generating pairs of approximative root and error.
+
+    Uses Illinois method or similar to find a root of f in [a, b]. Might fail for multiple roots (needs sign change). Combines bisect with secant (improved regula falsi).
+
+    The only difference between the methods is the scaling factor m, which is used to ensure convergence (you can choose one using the ‘method’ keyword):
+
+    Illinois method (‘illinois’):
+        m = 0.5
+    Pegasus method (‘pegasus’):
+        m = fb/(fb + fz)
+    Anderson-Bjoerk method (‘anderson’):
+        m = 1 - fz/fb if positive else 0.5
+
+    Pro:
+
+        * converges very fast
+
+    Contra:
+
+        * has problems with multiple roots
+        * needs sign change
+
+class mpmath.calculus.optimization.Pegasus¶
+
+    1d-solver generating pairs of approximative root and error.
+
+    Uses Pegasus method to find a root of f in [a, b]. Wrapper for illinois to use method=’pegasus’.
+
+class mpmath.calculus.optimization.Anderson¶
+
+    1d-solver generating pairs of approximative root and error.
+
+    Uses Anderson-Bjoerk method to find a root of f in [a, b]. Wrapper for illinois to use method=’pegasus’.
+
+class mpmath.calculus.optimization.Ridder(ctx, f, x0, **kwargs)¶
+
+    1d-solver generating pairs of approximative root and error.
+
+    Ridders’ method to find a root of f in [a, b]. Is told to perform as well as Brent’s method while being simpler.
+
+    Pro:
+
+        * very fast
+        * simpler than Brent’s method
+
+    Contra:
+
+        * two function evaluations per step
+        * has problems with multiple roots
+        * needs sign change
+
+    http://en.wikipedia.org/wiki/Ridders’_method
+
+class mpmath.calculus.optimization.ANewton(ctx, f, x0, **kwargs)¶
+
+    EXPERIMENTAL 1d-solver generating pairs of approximative root and error.
+
+    Uses Newton’s method modified to use Steffensens method when convergence is slow. (I.e. for multiple roots.)
+
+class mpmath.calculus.optimization.MDNewton(ctx, f, x0, **kwargs)¶
+
+    Find the root of a vector function numerically using Newton’s method.
+
+    f is a vector function representing a nonlinear equation system.
+
+    x0 is the starting point close to the root.
+
+    J is a function returning the Jacobian matrix for a point.
+
+    Supports overdetermined systems.
+
+    Use the ‘norm’ keyword to specify which norm to use. Defaults to max-norm. The function to calculate the Jacobian matrix can be given using the keyword ‘J’. Otherwise it will be calculated numerically.
+
+    Please note that this method converges only locally. Especially for high- dimensional systems it is not trivial to find a good starting point being close enough to the root.
+
+    It is recommended to use a faster, low-precision solver from SciPy [1] or OpenOpt [2] to get an initial guess. Afterwards you can use this method for root-polishing to any precision.

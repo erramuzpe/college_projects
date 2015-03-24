@@ -1,0 +1,16 @@
+
+
+num = ['cero','uno','dos','tre','cuatro','cinco','seis','siete','ocho','nueve']
+
+for numero=0:9
+    if numero == 0
+        num='cero';
+    end
+    
+        indice = clasificar(num);
+        if bien==1
+            contador=contador + 1;
+        end
+        
+    end
+end
