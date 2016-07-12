@@ -1,13 +1,13 @@
 #!/usr/bin/perl
 
-open(PREG,"+<preg");	#Archivo de preguntas o respuestas si no se 
+open(PREG,"+<preg");	#Archivo de preguntas o respuestas si no se
 			#encuentra patrón
 
 	#Voy a hacer el tratamiento de PREG en un bucle fuera del bucle principal,
-	#no como con TEXT, que lo recorre cada vez y no es eficiente. 
-	#(pero permite editarlo, durante la ejecución. 
+	#no como con TEXT, que lo recorre cada vez y no es eficiente.
+	#(pero permite editarlo, durante la ejecución.
 
-while ($line=<PREG>) { 
+while ($line=<PREG>) {
 	chomp $line; #elimina /n
 	push @preguntas,$line;
 }
@@ -34,10 +34,10 @@ while($a==$b) {  	#bucle sin fin
 
 	#ZONA COMPARAR CON DICCIONARIO
 
-	#RECORRE TODO EL DICCIONARIO EN BUSCA DE LAS PALABRAS QUE 
-	#APAREZCAN Y ALMACENA RESPUESTAS EN @encontrado. 
+	#RECORRE TODO EL DICCIONARIO EN BUSCA DE LAS PALABRAS QUE
+	#APAREZCAN Y ALMACENA RESPUESTAS EN @encontrado.
 
-	while ($line=<TEXT>) { 
+	while ($line=<TEXT>) {
 
 
 		chomp $line; #elimina /n
@@ -52,26 +52,26 @@ while($a==$b) {  	#bucle sin fin
 			$wsaidb=$said;
 
 			#echo "hola" | festival --tts (español)
-		} 
+		}
 		#sleep(1);
 	}
 
-	
+
 	if(@encontrado == 0) {
 			#ZONA DE PREGUNTAS SI @encontrado vacio
 			#Habla algo de @preguntas
 			$elementoaleatorio = $preguntas[rand @preguntas];
 			print ("Bot>" . $elementoaleatorio . "\n");
 			#print @preguntas;
-			
-			
-	} 
+
+
+	}
 	else {
 			#ZONA HABLAR ALEATORIAMENTE ALGO @encontrado
 			$elementoaleatorio = $encontrado[rand @encontrado];
 			print ("Bot>" . $elementoaleatorio . "\n");
 			#print @encontrado;
-	
+
 	}
 
 
@@ -79,7 +79,7 @@ while($a==$b) {  	#bucle sin fin
 
 	#ZONA CONTROL REPETICIONES
 	open(LOG,"+<log");
-	while ($repe=<LOG> and $repetido==0) { 
+	while ($repe=<LOG> and $repetido==0) {
 		chomp $repe; #elimina /n
 
 		if($said eq $repe) {
@@ -87,7 +87,7 @@ while($a==$b) {  	#bucle sin fin
 			$repetido = 1;
 		}
 	}
-	
+
 	#Se escribe en el log si no está dentro todavía.
 	if ($repetido==0){
 		open(LOG,">>log");	#Archivo log
@@ -100,10 +100,9 @@ while($a==$b) {  	#bucle sin fin
 
 	close (TEXT);
 	close (LOG);
-	
+
 
 }
 close (PREG);
 
 #cd Mahaigaina/ISLN/PRAC/
-
